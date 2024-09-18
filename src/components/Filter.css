@@ -1,0 +1,101 @@
+.filter {
+  position: static;
+  padding: 10px 2% 0;
+  width: 22vw;
+  padding-top: 175px;
+}
+.filter > div {
+  margin: 0 4%;
+}
+.sort-bar {
+  display: flex;
+  font-size: var(--font-l);
+  justify-content: space-between;
+  align-items: center;
+}
+.sort-bar input {
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+.sort-by span {
+  font-size: var(--font-m);
+}
+.sort-option {
+  position: absolute;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-m);
+  gap: 15px;
+  color: #333333;
+  background-color: white;
+}
+.sort-option p {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.active {
+  display: none;
+}
+.filter-c {
+  display: flex;
+  justify-content: space-between;
+}
+.filter-clear {
+  padding: 10px 0;
+}
+.filter-c {
+  font-size: var(--font-l);
+}
+.filter-c span {
+  font-size: var(--font-sm);
+}
+.segment-c {
+  border: solid 1px black;
+  width: 96%;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+li {
+  display: flex;
+  gap: 5px;
+  font-size: var(--font-sl);
+}
+ul li input[type] {
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border: black solid 1px;
+  border-radius: 10px;
+}
+.select-c {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+h1 {
+  font-size: var(--font-ls);
+  padding: 10px 0 30px 0;
+}
+
+.category-c input {
+  width: 100%;
+  padding: 5px;
+  border: solid 1px black;
+  height: 40px;
+  border-radius: 5px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 600px) {
+  .filter {
+    padding: 130px 0 0;
+    width: 100vw;
+  }
+}

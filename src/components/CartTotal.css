@@ -1,0 +1,23 @@
+.cart-total {
+  position: fixed;
+  top: 100px;
+  right: 20%;
+  height: 50px;
+}
+
+.cart-total span {
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .cart-total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 40px 0;
+    height: auto;
+  }
+}
