@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import ProductContext from "../context/Product/ProductContext";
 import "./Product.css";
+import { useNavigate } from "react-router-dom";
 
 // Utility function to get product data
 const fetchProductData = async (productId) => {
@@ -21,6 +22,7 @@ const fetchProductData = async (productId) => {
 function Product() {
   const { productId, addCartValue, addToCart } = useContext(ProductContext);
   const [productData, setProductData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (productId) {
@@ -29,7 +31,10 @@ function Product() {
   }, [productId]);
 
   const handleAddToCart = () => {
-    if (productData) {
+    const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
+    if (!loggedUser || Object.keys(loggedUser).length === 0) {
+      navigate("/cart");
+    } else if (productData) {
       addCartValue();
       addToCart({
         id: productId,

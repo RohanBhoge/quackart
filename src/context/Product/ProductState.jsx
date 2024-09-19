@@ -26,47 +26,43 @@ const ProductState = (props) => {
   const addToCart = (item) => {
     const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
 
-    if (!loggedUser || Object.keys(loggedUser).length === 0) {
-      window.location.href = "/#/login";
-    } else {
-      setLogedUser((prevUser) => {
-        const isItemPresent = prevUser.cartproducts?.find(
-          (cartItem) => cartItem.id === item.id
+    setLogedUser((prevUser) => {
+      const isItemPresent = prevUser.cartproducts?.find(
+        (cartItem) => cartItem.id === item.id
+      );
+      let updatedCartProducts;
+
+      if (isItemPresent) {
+        updatedCartProducts = prevUser.cartproducts.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
         );
-        let updatedCartProducts;
+      } else {
+        updatedCartProducts = [
+          ...(prevUser.cartproducts || []),
+          { ...item, quantity: 1 },
+        ];
+      }
 
-        if (isItemPresent) {
-          updatedCartProducts = prevUser.cartproducts.map((cartItem) =>
-            cartItem.id === item.id
-              ? { ...cartItem, quantity: cartItem.quantity + 1 }
-              : cartItem
-          );
-        } else {
-          updatedCartProducts = [
-            ...(prevUser.cartproducts || []),
-            { ...item, quantity: 1 },
-          ];
-        }
+      // Update user account in localStorage
+      const users = JSON.parse(localStorage.getItem("account")) || [];
+      const userIndex = users.findIndex(
+        (user) =>
+          loggedUser.email === user.email &&
+          loggedUser.password === user.password
+      );
+      if (userIndex !== -1) {
+        users[userIndex].cartproducts = updatedCartProducts;
+        localStorage.setItem("account", JSON.stringify(users));
+      }
 
-        // Update user account in localStorage
-        const users = JSON.parse(localStorage.getItem("account")) || [];
-        const userIndex = users.findIndex(
-          (user) =>
-            loggedUser.email === user.email &&
-            loggedUser.password === user.password
-        );
-        if (userIndex !== -1) {
-          users[userIndex].cartproducts = updatedCartProducts;
-          localStorage.setItem("account", JSON.stringify(users));
-        }
+      // Update the local logedUser and persist it
+      const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
+      localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
 
-        // Update the local logedUser and persist it
-        const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-        localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-        return updatedUser;
-      });
-    }
+      return updatedUser;
+    });
   };
 
   // Function to remove item from cart
