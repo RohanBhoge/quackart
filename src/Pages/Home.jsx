@@ -4,8 +4,8 @@ import Category from "../components/Category";
 import Filter from "../components/Filter";
 import CardList from "../components/CardList";
 export default function Home() {
-  const [category, setCategory] = useState();
-  const [sortItem, setSortItem] = useState();
+  const [category, setCategory] = useState("");
+  const [sortItem, setSortItem] = useState("");
 
   return (
     <>

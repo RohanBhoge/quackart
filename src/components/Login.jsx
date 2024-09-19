@@ -103,7 +103,6 @@ const Login = () => {
       <div className="login">
         <form
           onSubmit={(e) => {
-            e.preventDefault();
             loginUser(e.target.email.value, e.target.pswd.value);
           }}
         >
