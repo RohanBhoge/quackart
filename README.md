@@ -72,7 +72,7 @@ After deploying or running the Quickcart project locally, users can interact wit
 The project is deployed and accessible at https://rohanbhoge.github.io/quackart/.
 
 # Contact
-- **Email**: [bhogerohan60@gmail.com](mailto:bhogeroahn60@example.com)
+- **Email**: [bhogerohan12@gmail.com](mailto:bhogerohan12@gmail.com)
 - **GitHub**: [GitHub](https://github.com/RohanBhoge)
 - **LinkedIn**: [LinkedIn](https://www.linkedin.com/in/rohanbhoge)
 
