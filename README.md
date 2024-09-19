@@ -11,27 +11,27 @@ This is a front-end e-commerce project built using React, CSS, and JavaScript. T
 
 # Preview
 ![Homepage Screenshot](./src/assets/Screenshot_0.png)
-#### Homepage: Displays the product list and navigation options.
+*omepage: Displays the product list and navigation options.*
 
 ![Product page](./src/assets/Screenshot_01.png)
-#### Product Page: Shows detailed information about a selected product.
+*Product Page: Shows detailed information about a selected product.*
 ![Small screen ](./src/assets/Screenshot_02.png)
-#### Optimized for small screens with responsive layout adjustments.
+*Optimized for small screens with responsive layout adjustments.*
 ![login page](./src/assets/Screenshot_03.png)
 ![login page](./src/assets/Screenshot_04.png) 
-#### Login Page: Allows users to log in and access their profile.
+*Login Page: Allows users to log in and access their profile.*
 ![Alt Text](./src/assets/Screenshot_05.png) 
-#### Cart Page: Manages cart items, quantities, and total cost.
+*Cart Page: Manages cart items, quantities, and total cost.*
 
 # Features
-- Product List: Browse products on the homepage.
-- Product Pages: View detailed product information.
-- Navbar: Access cart and login pages via icons.
-- Categories: Filter products by category.
-- Sorting: Sort products by price, rating, or relevance.
-- User Profile: Login page and display user info when logged in.
-- Cart Page: Manage cart items, quantities, and total cost.
-- Home Navigation: Return to the homepage by clicking the logo.
+- **Product List**: Browse products on the homepage.
+- **Product Pages**: View detailed product information.
+- **Navbar**: Access cart and login pages via icons.
+- **Categories**: Filter products by category.
+- **Sorting**: Sort products by price, rating, or relevance.
+- **User Profile**: Login page and display user info when logged in.
+- **Cart Page**: Manage cart items, quantities, and total cost.
+- **Home Navigation**: Return to the homepage by clicking the logo.
 
 
 # Usage
