@@ -69,6 +69,6 @@ After deploying or running the Quickcart project locally, users can interact wit
 - Clicking on the Quickcart logo from any page will always take the user back to the homepage.
 
 # Contact
-- **Email**: [bhogerohan60@gmail.com](mailto:bhogeroahn60@example.com)
+- **Rohan**: [bhogerohan60@gmail.com](mailto:bhogeroahn60@example.com)
 - **GitHub**: [GitHub](https://github.com/RohanBhoge)
 - **LinkedIn**: [LinkedIn](https://www.linkedin.com/in/rohanbhoge)
