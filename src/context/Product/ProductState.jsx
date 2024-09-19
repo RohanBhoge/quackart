@@ -27,7 +27,7 @@ const ProductState = (props) => {
     const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
 
     if (!loggedUser || Object.keys(loggedUser).length === 0) {
-      window.location.href = "/login";
+      window.location.href = "/#/login";
     } else {
       setLogedUser((prevUser) => {
         const isItemPresent = prevUser.cartproducts?.find(
