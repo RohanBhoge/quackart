@@ -68,7 +68,14 @@ After deploying or running the Quickcart project locally, users can interact wit
 
 - Clicking on the Quickcart logo from any page will always take the user back to the homepage.
 
+# Deployment
+The project is deployed and accessible at https://rohanbhoge.github.io/quackart/.
+
 # Contact
 - **Rohan**: [bhogerohan60@gmail.com](mailto:bhogeroahn60@example.com)
 - **GitHub**: [GitHub](https://github.com/RohanBhoge)
 - **LinkedIn**: [LinkedIn](https://www.linkedin.com/in/rohanbhoge)
+
+# Acknowledgments
+- Thanks to the React community for the excellent documentation and support.
+- Inspiration from various open-source projects and YouTube’s UI/UX design.
