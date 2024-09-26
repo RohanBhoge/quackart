@@ -1,4 +1,11 @@
-import { BrowserRouter, json, Route, Router, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  HashRouter,
+  json,
+  Route,
+  Router,
+  Routes,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home";
 import Product from "./components/Product";
@@ -14,7 +21,7 @@ export default function App() {
   const context = useContext(ProductContext);
   const logedUser = context.logedUser;
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navbar />
       <Routes>
         <Route path="/" exact element={<Home />} />
@@ -32,6 +39,6 @@ export default function App() {
         <Route path="/login" element={<Account />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
