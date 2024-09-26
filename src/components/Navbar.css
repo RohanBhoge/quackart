@@ -10,6 +10,27 @@
   background-color: white;
 }
 
+.navbar p {
+  position: relative;
+}
+.navbar p span {
+  position: absolute;
+  top: -10px;
+  left: -30px;
+  width: 150px;
+  margin-left: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  font-size: 11px;
+  background-color: yellow;
+  border-radius: 10px;
+}
+
+.span-click {
+  display: none;
+}
+
 .right {
   display: flex;
   align-items: center;
