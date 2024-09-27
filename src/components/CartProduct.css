@@ -111,6 +111,9 @@
     .inc-dic {
       display: flex;
     }
+    button {
+      background-color: none;
+    }
   }
 }
 
