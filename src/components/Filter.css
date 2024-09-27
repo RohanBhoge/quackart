@@ -33,6 +33,12 @@
 .sort-option p {
   margin-left: 10px;
   cursor: pointer;
+  transition: 100ms;
+}
+
+.sort-option p:hover {
+  font-size: 17px;
+  /* transform: scale(1.01); */
 }
 .active {
   display: none;

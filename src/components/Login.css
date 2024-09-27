@@ -115,7 +115,10 @@
   .sign-login-container button {
     font-size: var(--font-l);
   }
-  .sign-login-container label{
+  .sign-login-container label {
     font-size: var(--font-ls);
+  }
+  .sign-login-container {
+    border: none;
   }
 }

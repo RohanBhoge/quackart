@@ -1,13 +1,14 @@
 .card {
   text-decoration: none;
-  color: inherit;
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   margin: 10px;
   width: auto;
   overflow: hidden;
-  border: solid black 1px;
+  /* border: solid black 1px; */
   padding: 5px;
+  transition: 100ms linear;
 }
 .card:hover {
   text-decoration: none;
@@ -46,7 +47,15 @@
   font-weight: 600;
 }
 .card button {
-  border: solid black 1px;
-  border-radius: 5px;
-  height: 30px;
+  border: solid 1px;
+  background-color: var(--button-color1);
+  color: white;
+  border-radius: 10px;
+  height: 35px;
+}
+.card button:hover {
+  background-color: var(--button-color2);
+}
+.card:hover {
+  transform: scale(1.01);
 }

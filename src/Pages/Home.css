@@ -3,6 +3,7 @@ html {
 }
 
 .product {
+  background-color: var(--background-color);
   display: flex;
 }
 @media (max-width: 600px) {
@@ -10,4 +11,3 @@ html {
     display: block;
   }
 }
-

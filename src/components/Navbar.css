@@ -21,7 +21,7 @@
   letter-spacing: 1px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 600;
-  color: coral;
+  color: var(--button-color2);
   cursor: pointer;
 }
 .profile-info,
@@ -59,7 +59,7 @@
   right: 13px;
   background: rgba(black 0);
   color: black;
-  font-size: var(--font-m);
+  font-size: 12px;
   font-weight: 600;
 }
 

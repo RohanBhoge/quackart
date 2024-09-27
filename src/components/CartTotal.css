@@ -2,11 +2,23 @@
   position: fixed;
   top: 100px;
   right: 20%;
-  height: 50px;
+  /* background-color: #fff5cd; */
+  padding: 10px;
+  border-left: 1px solid #0b132b;
+  border-bottom: 1px solid #0b132b;
 }
 
 .cart-total span {
   font-weight: 600;
+}
+@media (max-width: 900px) {
+  .cart-total {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-left: 10px;
+    border: none;
+  }
 }
 
 @media (max-width: 600px) {

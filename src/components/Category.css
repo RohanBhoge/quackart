@@ -12,6 +12,19 @@
 }
 .category p {
   cursor: pointer;
+  transition: all 500ms;
+}
+.select-category {
+  text-decoration: underline;
+  text-decoration-color: var(--button-color1);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+.category p:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--button-color1);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
 }
 .segment {
   position: absolute;
@@ -20,8 +33,8 @@
   left: 1%;
   bottom: 0px;
 }
-@media (max-width:600px) {
-  .category{
+@media (max-width: 600px) {
+  .category {
     padding: 0 10px;
     top: 60px;
     font-size: var(--font-sm);

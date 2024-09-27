@@ -55,7 +55,7 @@ function Filter({ setSortItem }) {
         </div>
 
         {isSortOpen && (
-          <div className="sort-options">
+          <div className="sort-option">
             {[
               "Relevance",
               "Price (High to Low)",

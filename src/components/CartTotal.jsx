@@ -17,12 +17,12 @@ function CartTotal() {
 
   return (
     <div className="cart-total">
-      <p>Price Details</p>
+      <p>PRICE DETAILS</p>
       <p>
         Total Items: <span>{totalItems}</span>
       </p>
       <p>
-        Total: <span>${totalPrice.toFixed(2)}</span>
+        Total Amount: <span>${totalPrice.toFixed(2)}</span>
       </p>
     </div>
   );

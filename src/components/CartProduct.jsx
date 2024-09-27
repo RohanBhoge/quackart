@@ -1,5 +1,7 @@
 import "./CartProduct.css";
 import deleteIcon from "../assets/delete.svg";
+import upArrow from "../assets/up-arrow.svg";
+import downArrow from "../assets/arrow-down-01.svg";
 import { useContext, useEffect, useState } from "react";
 import ProductContext from "../context/Product/ProductContext";
 
@@ -31,32 +33,43 @@ function CartProduct({ product }) {
 
   return (
     <div className="cart-product">
-      <img src={productData.image} alt={productData.title} />
+      <img
+        className="product-img"
+        src={productData.image}
+        alt={productData.title}
+      />
       <div className="product-info">
         <p>{productData.title}</p>
-        <p>${productData.price}</p>
+        <div className="price-button">
+          <p>${(productData.price * product.quantity).toFixed(2)}</p>
+          <div className="buttons">
+            <button onClick={(e) => updateQuantity(product.quantity - 1, e)}>
+              -
+            </button>
+            <button onClick={(e) => updateQuantity(product.quantity + 1, e)}>
+              +
+            </button>
+          </div>
+        </div>
+        <div className="qty-delete">
+          <div className="qty">
+            <p>Qty: {product.quantity}</p>
+            <div className="inc-dic">
+              <img
+                src={upArrow}
+                alt=""
+                onClick={(e) => updateQuantity(product.quantity + 1, e)}
+              />
+              <img
+                src={downArrow}
+                alt=""
+                onClick={(e) => updateQuantity(product.quantity - 1, e)}
+              />
+            </div>
+          </div>
+          <button onClick={removeCartItem}>Remove</button>
+        </div>
       </div>
-
-      <div className="buttons">
-        <button onClick={(e) => updateQuantity(product.quantity - 1, e)}>
-          -
-        </button>
-
-        <button onClick={removeCartItem}>
-          <img src={deleteIcon} alt="Delete" />
-        </button>
-
-        <button onClick={(e) => updateQuantity(product.quantity + 1, e)}>
-          +
-        </button>
-      </div>
-
-      <p className="product-quantity">
-        Quantity: <span>{product.quantity}</span>
-      </p>
-      <p className="product-total-price">
-        Total Price: ${(productData.price * product.quantity).toFixed(2)}
-      </p>
     </div>
   );
 }

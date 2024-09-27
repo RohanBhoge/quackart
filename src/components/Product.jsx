@@ -51,7 +51,7 @@ function Product() {
   return (
     <div className="product-p">
       <img src={productData.image} alt={productData.title} />
-      <div className="product-info">
+      <div className="product-information">
         <h1>{productData.title}</h1>
         <p>{productData.category}</p>
         <p>${productData.price}</p>
