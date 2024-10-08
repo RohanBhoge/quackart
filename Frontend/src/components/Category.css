@@ -1,0 +1,42 @@
+.category {
+  position: fixed;
+  top: 84px;
+  width: 100vw;
+  z-index: 99;
+  background: white;
+  padding: 10px 2% 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.category p {
+  cursor: pointer;
+  transition: all 500ms;
+}
+.select-category {
+  text-decoration: underline;
+  text-decoration-color: var(--button-color1);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+.category p:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--button-color1);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+.segment {
+  position: absolute;
+  border: solid black 1px;
+  width: 98%;
+  left: 1%;
+  bottom: 0px;
+}
+@media (max-width: 600px) {
+  .category {
+    padding: 0 10px;
+    top: 60px;
+    font-size: var(--font-sm);
+  }
+}
