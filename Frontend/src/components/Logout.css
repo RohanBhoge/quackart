@@ -70,3 +70,15 @@
 .sign-out-button {
   margin-bottom: 20px;
 }
+
+.active-dark .profile-container .add-account-link :nth-child(2),
+.active-dark .sign-out-button p,
+.active-dark .user-details,
+.active-dark .add-account-link,
+.active-dark .sign-out-button {
+  color: var(--bg-color-light);
+}
+.active-dark .profile-container .section-divider,
+.active-dark .profile-container {
+  border: solid var(--bg-color-light) 1px;
+}

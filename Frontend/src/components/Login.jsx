@@ -11,6 +11,7 @@ const Login = () => {
     setLogedUser,
     loginActive,
     setUserName,
+    dark,
   } = useContext(ProductContext);
   const navigate = useNavigate();
 
@@ -57,7 +58,11 @@ const Login = () => {
   };
 
   return (
-    <div className="sign-login-container">
+    <div
+      className={`sign-login-container ${
+        dark ? "primary-dark-active dark-active" : ""
+      }`}
+    >
       {loginActive && <img src={Close} alt="Close" className="close-icon" />}
       <input type="checkbox" id="chk" aria-hidden="true" />
 
@@ -100,7 +105,7 @@ const Login = () => {
         </form>
       </div>
 
-      <div className="login">
+      <div className={`login ${dark ? "dark-active" : ""}`}>
         <form
           onSubmit={(e) => {
             loginUser(e.target.email.value, e.target.pswd.value);

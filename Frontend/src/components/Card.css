@@ -6,7 +6,6 @@
   margin: 10px;
   width: auto;
   overflow: hidden;
-  /* border: solid black 1px; */
   padding: 5px;
   transition: 100ms linear;
 }
@@ -49,7 +48,7 @@
 .card button {
   border: solid 1px;
   background-color: var(--button-color1);
-  color: white;
+  color: var(--text-color-dark);
   border-radius: 10px;
   height: 35px;
 }
@@ -58,4 +57,14 @@
 }
 .card:hover {
   transform: scale(1.01);
+}
+.right .dark-mode {
+  font-size: 14px;
+}
+
+.secondry-dark-active {
+  color: var(--text-color-dark);
+  button {
+    background-color: var(--button-bg-color);
+  }
 }

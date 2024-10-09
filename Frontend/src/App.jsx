@@ -4,7 +4,7 @@ import Home from "./Pages/Home";
 import Product from "./components/Product";
 import Navbar from "./components/Navbar";
 import CartPage from "./Pages/CartPage";
-import Logout from "./components/AccountSetting";
+import Logout from "./components/Logout";
 import Account from "./Pages/Account";
 import CartLoginForm from "./components/CartLoginForm";
 import { useContext } from "react";

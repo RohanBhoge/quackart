@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  color: black;
 }
 .category p {
   cursor: pointer;
@@ -33,6 +34,16 @@
   left: 1%;
   bottom: 0px;
 }
+
+.category-dark-active {
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+
+  .segment {
+    border: solid var(--text-color-dark) 1px;
+  }
+}
+
 @media (max-width: 600px) {
   .category {
     padding: 0 10px;

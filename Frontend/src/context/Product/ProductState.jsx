@@ -22,6 +22,10 @@ const ProductState = (props) => {
       : {}
   );
 
+  // Dark Mode.
+
+  const [dark, setDark] = useState(false);
+
   // Function to add items to cart
   const addToCart = (item) => {
     const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
@@ -161,6 +165,8 @@ const ProductState = (props) => {
         setUserAccount,
         filteredItems,
         setFilteredItems,
+        dark,
+        setDark,
       }}
     >
       {props.children}

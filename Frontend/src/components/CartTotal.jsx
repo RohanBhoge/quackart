@@ -19,7 +19,7 @@ function CartTotal() {
     <div className="cart-total">
       <p>PRICE DETAILS</p>
       <p>
-        Total Items: <span>{totalItems}</span>
+        Total Qty: <span>{totalItems}</span>
       </p>
       <p>
         Total Amount: <span>${totalPrice.toFixed(2)}</span>

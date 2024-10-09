@@ -8,6 +8,7 @@
   z-index: 99;
   width: 100vw;
   background-color: white;
+  color: black;
 }
 
 .right {
@@ -45,6 +46,10 @@
   text-decoration: none;
   color: black;
 }
+
+.dark-active:hover {
+  color: var(--text-color-dark);
+}
 .segment {
   position: absolute;
   border: solid black 1px;
@@ -61,6 +66,20 @@
   color: black;
   font-size: 12px;
   font-weight: 600;
+}
+.dark-active span {
+  color: var(--text-color-dark);
+}
+.right .dark-mode {
+  width: 25px;
+}
+
+.dark-active {
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+  .segment {
+    border: var(--text-color-dark) solid 1px;
+  }
 }
 
 @media (max-width: 600px) {

@@ -5,7 +5,7 @@ import down from "../assets/down-arrow.svg";
 import ProductContext from "../context/Product/ProductContext";
 
 function Filter({ setSortItem }) {
-  const { filteredItems } = useContext(ProductContext);
+  const { filteredItems, dark } = useContext(ProductContext);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [sortOption, setSortOption] = useState("Relevance");
   // const [isCategoryOpen, setIsCategoryOpen] = useState(true);
@@ -33,7 +33,7 @@ function Filter({ setSortItem }) {
   // ];
 
   return (
-    <div className="filter">
+    <div className={`filter ${dark ? "dark-active" : ""}`}>
       <h1>Products For You</h1>
 
       {/* Sort Menu */}

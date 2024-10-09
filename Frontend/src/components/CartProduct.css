@@ -24,6 +24,10 @@
   }
 }
 
+.dark-active {
+  color: var(--text-color-dark);
+}
+
 .product-info {
   width: 100%;
   display: flex;
@@ -115,6 +119,17 @@
       background-color: none;
     }
   }
+}
+
+.dark-active .qty-delete button {
+  background-color: var(--primary-accent-color);
+  color: var(--text-color-dark);
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.dark-active .qty-delete button:hover {
+  color: red;
 }
 
 .qty {

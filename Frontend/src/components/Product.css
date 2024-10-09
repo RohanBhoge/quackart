@@ -1,5 +1,5 @@
 .product-p {
-  margin-top: calc(125px);
+  padding: calc(125px);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -49,6 +49,11 @@
 
 .product-information .button button:hover {
   background-color: var(--button-color2);
+}
+
+
+.primary-dark-active .product-information p{
+  color: var(--text-color-dark);
 }
 
 /* When Screen size 1000px */

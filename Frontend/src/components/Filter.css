@@ -30,6 +30,10 @@
   color: #333333;
   background-color: white;
 }
+.dark-active .sort-option { 
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+}
 .sort-option p {
   margin-left: 10px;
   cursor: pointer;

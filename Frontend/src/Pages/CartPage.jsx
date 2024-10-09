@@ -6,11 +6,11 @@ import ProductContext from "../context/Product/ProductContext";
 
 function CartPage() {
   const context = useContext(ProductContext);
-  const { logedUser } = context;
+  const { logedUser,dark } = context;
   const cartItems = logedUser?.cartproducts || [];
 
   return (
-    <div className="cart-page">
+    <div className={`cart-page ${dark ? "primary-dark-active dark-active" : ""}`}>
       {cartItems.length > 0 ? (
         cartItems.map((cartItem) => (
           <CartProduct key={cartItem.id} product={cartItem} />

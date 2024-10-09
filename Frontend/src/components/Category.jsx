@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Category.css";
+import ProductContext from "../context/Product/ProductContext";
 
 function Category({ setCategory }) {
+  const { dark } = useContext(ProductContext);
   const categories = [
     { id: 1, label: "Women's Clothing", value: "women's clothing" },
     { id: 2, label: "Men's Clothing", value: "men's clothing" },
@@ -11,7 +13,7 @@ function Category({ setCategory }) {
   const [selectCategory, setSelectCategory] = useState(0);
 
   return (
-    <div className="category">
+    <div className={`category ${dark ? "category-dark-active" : ""}`}>
       {categories.map((category) => (
         <p
           key={category.value}

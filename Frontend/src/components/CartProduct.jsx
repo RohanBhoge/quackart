@@ -1,5 +1,4 @@
 import "./CartProduct.css";
-import deleteIcon from "../assets/delete.svg";
 import upArrow from "../assets/up-arrow.svg";
 import downArrow from "../assets/arrow-down-01.svg";
 import { useContext, useEffect, useState } from "react";
@@ -32,7 +31,7 @@ function CartProduct({ product }) {
   };
 
   return (
-    <div className="cart-product">
+    <div className={`cart-product ${context.dark ? "dark-active" : ""}`}>
       <img
         className="product-img"
         src={productData.image}

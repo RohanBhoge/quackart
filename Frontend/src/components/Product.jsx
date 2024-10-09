@@ -20,7 +20,8 @@ const fetchProductData = async (productId) => {
 };
 
 function Product() {
-  const { productId, addCartValue, addToCart } = useContext(ProductContext);
+  const { productId, addCartValue, addToCart, dark } =
+    useContext(ProductContext);
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ function Product() {
   }
 
   return (
-    <div className="product-p">
+    <div className={`product-p ${dark ? "primary-dark-active" : ""}`}>
       <img src={productData.image} alt={productData.title} />
       <div className="product-information">
         <h1>{productData.title}</h1>

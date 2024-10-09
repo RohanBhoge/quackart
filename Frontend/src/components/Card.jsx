@@ -30,7 +30,7 @@ function Card({ item }) {
   return (
     <Link
       to={"/product"}
-      className="card"
+      className={`card ${context.dark ? "secondry-dark-active" : ""}`}
       onClick={() => context.setProductId(item.id)}
     >
       <div className="img-container">

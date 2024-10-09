@@ -96,7 +96,6 @@
   transform: translateY(-20px);
   transition: 0.8s ease-in-out;
 }
-
 .login label {
   color: coral;
   transform: scale(0.6);
@@ -111,6 +110,9 @@
   transform: scale(0.5);
 }
 
+.dark-active {
+  background-color: var(--bg-color-dark);
+}
 @media (max-width: 600px) {
   .sign-login-container button {
     font-size: var(--font-l);

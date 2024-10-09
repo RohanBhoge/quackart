@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-:root {
-}
-
+/* Univarsal Font */
 * {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -39,4 +37,26 @@
 
   /* Text color */
   --text-color: #0b132b;
+
+  /* Dark Mode color*/
+  --bg-color-light: #f4f4f9;
+  --bg-color-dark: #222831;
+  --text-color-light: #0b132b;
+  --text-color-dark: #eeeeee;
+  --button-bg-color: #76abae;
+  --primary-accent-color: #31363f;
+}
+
+/* Utilities */
+
+.primary-dark-active {
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-dark);
+  width: 100vw;
+  height: 100vh;
+}
+
+.secondry-dark-active {
+  background-color: var(--primary-accent-color);
+  color: var(--text-color-dark);
 }
