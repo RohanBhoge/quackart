@@ -16,15 +16,13 @@ const ProductState = (props) => {
   const [data, setData] = useState([]);
   const [userName, setUserName] = useState("Profile");
 
-  const [logedUser, setLogedUser] = useState(
-    localStorage.getItem("LogedUser")
-      ? JSON.parse(localStorage.getItem("LogedUser"))
-      : {}
-  );
+  const [logedUser, setLogedUser] = useState(false);
 
   // Dark Mode.
 
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(
+    localStorage.getItem("DarkMode") === "true" ? true : false
+  );
 
   // Function to add items to cart
   const addToCart = (item) => {

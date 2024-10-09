@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import profile from "../assets/profile.svg";
 import cart from "../assets/cart.svg";
 import "./Navbar.css";
@@ -13,18 +13,25 @@ function Navbar() {
   const { logedUser = {}, dark, setDark } = useContext(ProductContext); // Destructure with a default empty object
   const navigate = useNavigate();
 
-  // Calculate total items in the cart
-  const totalCart = logedUser.cartproducts
-    ? logedUser.cartproducts.reduce((total, item) => total + item.quantity, 0)
-    : 0;
+  const isDark = localStorage.getItem("DarkMode");
 
-  const darkModeOn = (event) => {
-    if (dark) {
+  const darkModeOn = () => {
+    if (isDark === "true") {
+      localStorage.setItem("DarkMode", "false");
       setDark(false);
     } else {
+      localStorage.setItem("DarkMode", "true");
       setDark(true);
     }
   };
+
+  useEffect(() => {
+    setDark(isDark === "true" ? true : false);
+  }, dark);
+
+  const totalCart = logedUser.cartproducts
+    ? logedUser.cartproducts.reduce((total, item) => total + item.quantity, 0)
+    : 0;
 
   return (
     <div className={`navbar ${dark ? "dark-active" : ""}`}>
