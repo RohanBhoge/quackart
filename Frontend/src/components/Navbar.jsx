@@ -26,8 +26,8 @@ function Navbar() {
   };
 
   useEffect(() => {
-    setDark(isDark === "true" ? true : false);
-  }, dark);
+    setDark(isDark === "true");
+  }, [dark]);
 
   const totalCart = logedUser.cartproducts
     ? logedUser.cartproducts.reduce((total, item) => total + item.quantity, 0)

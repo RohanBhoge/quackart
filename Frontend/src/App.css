@@ -45,6 +45,12 @@
   --text-color-dark: #eeeeee;
   --button-bg-color: #76abae;
   --primary-accent-color: #31363f;
+
+  /* Dark Shemmer effect color */
+  --dark-shemmer-effect: rgb(63, 58, 58);
+  --dark-shemmer-effect-animation: rgb(90, 82, 82);
+  --light-shemmer-effect: #808080;
+  --light-shemmer-effect-animation: #979595;
 }
 
 /* Utilities */

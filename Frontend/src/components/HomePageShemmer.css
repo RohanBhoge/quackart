@@ -1,6 +1,74 @@
-.shemmer-cart {
-  width: 350px;
-  height: 350px;
-  background-color: gray;
-  border: solid red 1px;
+.shemmer-card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: auto;
+  overflow: hidden;
+  padding: 5px;
+
+  .img-container {
+    max-width: 100%;
+    height: 240px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    animation: shimmerlight 0.9s infinite alternate;
+  }
+
+  .product-discription {
+    height: 25px;
+    border-radius: 10px;
+    animation: shimmerlight 0.9s infinite alternate;
+  }
+
+  .rating {
+    height: 25px;
+    width: 200px;
+    border-radius: 10px;
+    animation: shimmerlight 0.9s infinite alternate;
+  }
+
+  .button {
+    border-radius: 10px;
+    height: 35px;
+    animation: shimmerlight 0.9s infinite alternate;
+  }
+}
+
+.shemmer-dark-active {
+  .img-container {
+    animation: shimmerdark 0.9s infinite alternate;
+  }
+  .product-discription {
+    animation: shimmerdark 0.9s infinite alternate;
+  }
+  .rating {
+    animation: shimmerdark 0.9s infinite alternate;
+  }
+  .product-discription {
+    animation: shimmerdark 0.9s infinite alternate;
+  }
+  .button {
+    animation: shimmerdark 0.9s infinite alternate;
+  }
+}
+
+@keyframes shimmerdark {
+  0% {
+    background: var(--dark-shemmer-effect);
+    background-position: 200px 0;
+  }
+  100% {
+    background: var(--dark-shemmer-effect-animation);
+    background-position: -200px 0;
+  }
+}
+@keyframes shimmerlight {
+  0% {
+    background: var(--light-shemmer-effect);
+    background-position: 200px 0;
+  }
+  100% {
+    background: var(--light-shemmer-effect-animation);
+    background-position: -200px 0;
+  }
 }

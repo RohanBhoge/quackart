@@ -9,7 +9,7 @@ import Account from "./Pages/Account";
 import CartLoginForm from "./components/CartLoginForm";
 import { useContext } from "react";
 import ProductContext from "./context/Product/ProductContext";
-// import HomePageShemmer from "./components/homePageShemmer";
+import HomePageShemmer from "./components/HomePageShemmer.jsx";
 
 export default function App() {
   const context = useContext(ProductContext);
@@ -32,7 +32,7 @@ export default function App() {
         />
         <Route path="/login" element={<Account />} />
         <Route path="/logout" element={<Logout />} />
-        {/* <Route path="/shemmer" element={<HomePageShemmer />} /> */}
+        <Route path="/shemmer" element={<HomePageShemmer />} />
       </Routes>
     </HashRouter>
   );
