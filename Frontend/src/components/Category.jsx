@@ -7,7 +7,7 @@ function Category({ setCategory }) {
   const categories = [
     { id: 1, label: "Women's Clothing", value: "women's clothing" },
     { id: 2, label: "Men's Clothing", value: "men's clothing" },
-    { id: 3, label: "Jewelry", value: "jewelery" },
+    { id: 3, label: "Jewellery", value: "jewellery" },
     { id: 4, label: "Electronics", value: "electronics" },
   ];
   const [selectCategory, setSelectCategory] = useState(0);

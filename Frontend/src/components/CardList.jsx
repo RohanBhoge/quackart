@@ -21,8 +21,6 @@ function CardList({ category, sortItem }) {
 
   // Filtering and sorting logic
   const filteredData = data
-    ? data
-    : key
         .filter((item) => !category || item.category === category)
         .sort((a, b) => {
           switch (sortItem) {

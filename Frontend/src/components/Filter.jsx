@@ -22,6 +22,7 @@ function Filter({ setSortItem }) {
   const handleSortOptionClick = (option) => {
     setSortOption(option);
     setSortItem(option);
+    
   };
 
   // const categories = [
