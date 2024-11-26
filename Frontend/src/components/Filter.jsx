@@ -1,37 +1,54 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Filter.css";
 import up from "../assets/up-arrow.svg";
 import down from "../assets/down-arrow.svg";
 import ProductContext from "../context/Product/ProductContext";
 
 function Filter({ setSortItem }) {
-  const { filteredItems, dark } = useContext(ProductContext);
+  const { filteredItems, dark, sortCategory, setSortCategory } =
+    useContext(ProductContext);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [sortOption, setSortOption] = useState("Relevance");
-  // const [isCategoryOpen, setIsCategoryOpen] = useState(true);
-  // const [searchQuery, setSearchQuery] = useState("");
+  const [isCategoryOpen, setIsCategoryOpen] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const valueIsCheked = (isCheked, category) => {
+    if (isCheked) setSortCategory((prev) => [...prev, category]);
+    else setSortCategory((prev) => prev.filter((item) => item !== category));
+  };
+
+ 
 
   const toggleSort = () => {
     setIsSortOpen((prev) => !prev);
   };
 
-  // const toggleCategory = () => {
-  //   setIsCategoryOpen((prev) => !prev);
-  // };
+  const toggleCategory = () => {
+    setIsCategoryOpen((prev) => !prev);
+  };
 
   const handleSortOptionClick = (option) => {
     setSortOption(option);
     setSortItem(option);
-    
   };
 
-  // const categories = [
-  //   "Analog Watches",
-  //   "Women T-shirts",
-  //   "Women Tops And Tunics",
-  //   "Tops And Tunics",
-  //   "T-shirts",
-  // ];
+  const clearAll = () => {
+    // Reset the selected sort option
+    handleSortOptionClick("Relevance");
+    setSortItem("Relevance");
+
+    // Clear the selected categories
+    setSortCategory([]);
+  };
+
+  const categories = [
+    "Analog Watches",
+    "Women T-shirts",
+    "Women Tops And Tunics",
+    "Tops And Tunics",
+    "T-shirts",
+    "Dress",
+  ];
 
   return (
     <div className={`filter ${dark ? "dark-active" : ""}`}>
@@ -39,11 +56,12 @@ function Filter({ setSortItem }) {
 
       {/* Sort Menu */}
       <div className="filter-menu">
-        {/* Filter Menu */}
         <div className="filter-clear">
           <div className="filter-c">
             <p>Filter</p>
-            {/* <p>Clear All</p> */}
+            <p onClick={clearAll} className="cursor-pointer">
+              Clear All
+            </p>
           </div>
           <span>{filteredItems} products</span>
         </div>
@@ -73,7 +91,7 @@ function Filter({ setSortItem }) {
 
       {/* Category Filter */}
       <div className="segment-c"></div>
-      {/* <div className="category-c">
+      <div className="category-c">
         <div className="select-c" onClick={toggleCategory}>
           <h3>Category</h3>
           <img src={isCategoryOpen ? up : down} alt="Toggle Category" />
@@ -93,14 +111,20 @@ function Filter({ setSortItem }) {
                 )
                 .map((category, index) => (
                   <li key={index}>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      checked={sortCategory.includes(category)} // Bind checkbox state to `sortCategory`
+                      onChange={(e) =>
+                        valueIsCheked(e.target.checked, category)
+                      }
+                    />
                     <p>{category}</p>
                   </li>
                 ))}
             </ul>
           </>
         )}
-      </div> */}
+      </div>
     </div>
   );
 }

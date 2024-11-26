@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Login from "../components/Login";
 import "./Account.css";
 import ProductContext from "../context/Product/ProductContext";

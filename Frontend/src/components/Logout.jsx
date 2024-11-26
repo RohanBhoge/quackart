@@ -50,8 +50,8 @@ const Logout = () => {
           <div
             className="sign-out-button"
             onClick={() => {
-              localStorage.setItem("LogedUser", JSON.stringify({}));
-              context.setLogedUser({});
+              localStorage.removeItem("token");
+              context.setToken("");
               navigation("/");
             }}
           >

@@ -1,15 +1,16 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Category.css";
 import ProductContext from "../context/Product/ProductContext";
 
 function Category({ setCategory }) {
   const { dark } = useContext(ProductContext);
   const categories = [
-    { id: 1, label: "Women's Clothing", value: "women's clothing" },
-    { id: 2, label: "Men's Clothing", value: "men's clothing" },
+    { id: 1, label: "Women", value: "Women" },
+    { id: 2, label: "Men", value: "Men" },
     { id: 3, label: "Jewellery", value: "jewellery" },
-    { id: 4, label: "Electronics", value: "electronics" },
+    { id: 4, label: "kids", value: "Kids" },
   ];
+
   const [selectCategory, setSelectCategory] = useState(0);
 
   return (

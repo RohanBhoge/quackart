@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductContext from "./ProductContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductState = (props) => {
   // Initial states using localStorage data
+  const [productData, setProductData] = useState(null);
+
   const [filteredItems, setFilteredItems] = useState(0);
 
   const [productId, setProductId] = useState(localStorage.getItem("SID"));
@@ -18,128 +23,195 @@ const ProductState = (props) => {
 
   const [logedUser, setLogedUser] = useState(false);
 
+  const [sortCategory, setSortCategory] = useState([]);
+
+  const [token, setToken] = useState("");
+
   // Dark Mode.
 
   const [dark, setDark] = useState(
     localStorage.getItem("DarkMode") === "true" ? true : false
   );
 
-  // Function to add items to cart
-  const addToCart = (item) => {
-    const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
+  // Backend Url
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  // console.log(import.meta.env);
 
-    setLogedUser((prevUser) => {
-      const isItemPresent = prevUser.cartproducts?.find(
-        (cartItem) => cartItem.id === item.id
-      );
-      let updatedCartProducts;
+  const [product, setProduct] = useState([]);
 
-      if (isItemPresent) {
-        updatedCartProducts = prevUser.cartproducts.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      } else {
-        updatedCartProducts = [
-          ...(prevUser.cartproducts || []),
-          { ...item, quantity: 1 },
-        ];
+  const getProductData = async () => {
+    try {
+      const response = await axios.get(backendUrl + "/api/product/addlist");
+
+      if (response.data.success) {
+        setProduct(response.data.products);
       }
-
-      // Update user account in localStorage
-      const users = JSON.parse(localStorage.getItem("account")) || [];
-      const userIndex = users.findIndex(
-        (user) =>
-          loggedUser.email === user.email &&
-          loggedUser.password === user.password
-      );
-      if (userIndex !== -1) {
-        users[userIndex].cartproducts = updatedCartProducts;
-        localStorage.setItem("account", JSON.stringify(users));
-      }
-
-      // Update the local logedUser and persist it
-      const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-      localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-      return updatedUser;
-    });
-  };
-
-  // Function to remove item from cart
-  const removeFromCart = (id) => {
-    setLogedUser((prevUser) => {
-      const updatedCartProducts = prevUser.cartproducts.filter(
-        (cartItem) => cartItem.id !== id
-      );
-
-      const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-
-      // Update localStorage account and LogedUser
-      const users = JSON.parse(localStorage.getItem("account")) || [];
-      const userIndex = users.findIndex(
-        (user) =>
-          logedUser.email === user.email && logedUser.password === user.password
-      );
-      if (userIndex !== -1) {
-        users[userIndex].cartproducts = updatedCartProducts;
-        localStorage.setItem("account", JSON.stringify(users));
-      }
-      localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-      return updatedUser;
-    });
-  };
-
-  // Function to update the quantity of cart items
-  const updateCartItemQuantity = (id, quantity) => {
-    setLogedUser((prevUser) => {
-      const updatedCartProducts = prevUser.cartproducts.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      );
-
-      const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-
-      const users = JSON.parse(localStorage.getItem("account")) || [];
-      const userIndex = users.findIndex(
-        (user) =>
-          logedUser.email === user.email && logedUser.password === user.password
-      );
-      if (userIndex !== -1) {
-        users[userIndex].cartproducts = updatedCartProducts;
-        localStorage.setItem("account", JSON.stringify(users));
-      }
-      localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-      return updatedUser;
-    });
-  };
-
-  // Function to handle cart value increments
-  const addCartValue = (event) => {
-    const newCartValue = parseInt(localStorage.getItem("cartValue") || "0") + 1;
-    localStorage.setItem("cartValue", newCartValue);
-    setCartValue(newCartValue);
-  };
-
-  // Function to handle cart value decrements and remove item if cart value is 0
-  const minusCartValue = (event, id) => {
-    event.preventDefault();
-    const currentCartValue = parseInt(localStorage.getItem("cartValue") || "0");
-
-    if (currentCartValue > 0) {
-      const newCartValue = currentCartValue - 1;
-      localStorage.setItem("cartValue", newCartValue);
-      setCartValue(newCartValue);
-    } else {
-      removeFromCart(id);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.data.message);
     }
   };
+
+  useEffect(() => {
+    getProductData();
+  }, []);
+
+  // getProductData();
+
+  // Function to add items to cart
+  // const addToCart = async (item) => {
+
+  //   const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
+
+  //   setLogedUser((prevUser) => {
+  //     const isItemPresent = prevUser.cartproducts?.find(
+  //       (cartItem) => cartItem.id === item.id
+  //     );
+  //     let updatedCartProducts;
+
+  //     if (isItemPresent) {
+  //       updatedCartProducts = prevUser.cartproducts.map((cartItem) =>
+  //         cartItem.id === item.id
+  //           ? { ...cartItem, quantity: cartItem.quantity + 1 }
+  //           : cartItem
+  //       );
+  //     } else {
+  //       updatedCartProducts = [
+  //         ...(prevUser.cartproducts || []),
+  //         { ...item, quantity: 1 },
+  //       ];
+  //     }
+
+  //     // Update user account in localStorage
+  //     const users = JSON.parse(localStorage.getItem("account")) || [];
+  //     const userIndex = users.findIndex(
+  //       (user) =>
+  //         loggedUser.email === user.email &&
+  //         loggedUser.password === user.password
+  //     );
+  //     if (userIndex !== -1) {
+  //       users[userIndex].cartproducts = updatedCartProducts;
+  //       localStorage.setItem("account", JSON.stringify(users));
+  //     }
+
+  //     // Update the local logedUser and persist it
+  //     const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
+  //     localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
+
+  //     return updatedUser;
+  //   });
+
+  //   // if (token) {
+  //   //   try {
+  //   //       await axios.post(backendUrl + "/api/cart/add",{item.id,size},{headers:{token}})
+  //   //   } catch (error) {
+  //   //     console.log(error);
+  //   //     toast.error(error.message)
+  //   //   }
+  //   // }
+  // };
+
+  // // Function to remove item from cart
+  // const removeFromCart = (id) => {
+  //   setLogedUser((prevUser) => {
+  //     const updatedCartProducts = prevUser.cartproducts.filter(
+  //       (cartItem) => cartItem.id !== id
+  //     );
+
+  //     const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
+
+  //     // Update localStorage account and LogedUser
+  //     const users = JSON.parse(localStorage.getItem("account")) || [];
+  //     const userIndex = users.findIndex(
+  //       (user) =>
+  //         logedUser.email === user.email && logedUser.password === user.password
+  //     );
+  //     if (userIndex !== -1) {
+  //       users[userIndex].cartproducts = updatedCartProducts;
+  //       localStorage.setItem("account", JSON.stringify(users));
+  //     }
+  //     localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
+
+  //     return updatedUser;
+  //   });
+  // };
+
+  // // Function to update the quantity of cart items
+  // const updateCartItemQuantity = (id, quantity) => {
+  //   setLogedUser((prevUser) => {
+  //     const updatedCartProducts = prevUser.cartproducts.map((item) =>
+  //       item.id === id ? { ...item, quantity } : item
+  //     );
+
+  //     const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
+
+  //     const users = JSON.parse(localStorage.getItem("account")) || [];
+  //     const userIndex = users.findIndex(
+  //       (user) =>
+  //         logedUser.email === user.email && logedUser.password === user.password
+  //     );
+  //     if (userIndex !== -1) {
+  //       users[userIndex].cartproducts = updatedCartProducts;
+  //       localStorage.setItem("account", JSON.stringify(users));
+  //     }
+  //     localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
+
+  //     return updatedUser;
+  //   });
+  // };
+
+  // // Function to handle cart value increments.
+  // const addCartValue = (event) => {
+  //   const newCartValue = parseInt(localStorage.getItem("cartValue") || "0") + 1;
+  //   localStorage.setItem("cartValue", newCartValue);
+  //   setCartValue(newCartValue);
+  // };
+
+  // // Function to handle cart value decrements and remove item if cart value is 0
+  // const minusCartValue = (event, id) => {
+  //   event.preventDefault();
+  //   const currentCartValue = parseInt(localStorage.getItem("cartValue") || "0");
+
+  //   if (currentCartValue > 0) {
+  //     const newCartValue = currentCartValue - 1;
+  //     localStorage.setItem("cartValue", newCartValue);
+  //     setCartValue(newCartValue);
+  //   } else {
+  //     removeFromCart(id);
+  //   }
+  // };
+  //
+
+  //
+
+  const [search, setSearch] = useState("");
+  const [showSearch, setShowSearch] = useState("");
+  const [cartItems, setCartItems] = useState({});
+
+  const addToCart = async (itemId, size) => {
+    let cartData = structuredClone(cartItems);
+    if (cartData[itemId]) {
+      if (cartData[itemId[size]]) {
+        cartData[itemId][size] += 1;
+      } else {
+        cartData[itemId][size] = 1;
+      }
+    } else {
+      cartData[itemId] = {};
+      cartData[itemId][size] = 1;
+    }
+    setCartItems(cartData);
+    console.log(cartData);
+  };
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, []);
 
   return (
     <ProductContext.Provider
       value={{
+        cartItems,
         cartValue,
         setCartValue,
         productId,
@@ -147,14 +219,14 @@ const ProductState = (props) => {
         cartId,
         setCartId,
         addToCart,
-        removeFromCart,
-        updateCartItemQuantity,
+        // removeFromCart,
+        // updateCartItemQuantity,
         totalPrice,
         setTotalPrice,
         data,
         setData,
-        addCartValue,
-        minusCartValue,
+        // addCartValue,
+        // minusCartValue,
         userName,
         setUserName,
         logedUser,
@@ -165,6 +237,14 @@ const ProductState = (props) => {
         setFilteredItems,
         dark,
         setDark,
+        product,
+        productData,
+        setProductData,
+        setSortCategory,
+        sortCategory,
+        token,
+        setToken,
+        backendUrl,
       }}
     >
       {props.children}

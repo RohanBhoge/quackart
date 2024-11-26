@@ -4,45 +4,39 @@ import "./Product.css";
 import { useNavigate } from "react-router-dom";
 
 // Utility function to get product data
-const fetchProductData = async (productId) => {
-  try {
-    const response = await fetch(
-      `https://fakestoreapi.com/products/${productId}`
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Failed to fetch product data:", error);
-    return null;
-  }
-};
 
 function Product() {
-  const { productId, addCartValue, addToCart, dark } =
+  const { productId, addCartValue, addToCart, dark, product } =
     useContext(ProductContext);
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (productId) {
-      fetchProductData(productId).then((data) => setProductData(data));
+  // Update Product Data.
+  const fetchProductData = async (productId, product) => {
+    console.log(product, productId);
+    try {
+      const response = product.filter((item) => item._id === productId);
+      console.log(response);
+      useEffect(() => {
+        setProductData(response[0]);
+      }, [response]);
+      return response[0];
+    } catch (error) {
+      console.error("Failed to fetch product data:", error);
+      return null;
     }
-  }, [productId]);
+  };
+  fetchProductData(productId, product);
+  // console.log(productData);
 
   const handleAddToCart = () => {
-    const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
-    if (!loggedUser || Object.keys(loggedUser).length === 0) {
-      navigate("/cart");
-    } else if (productData) {
-      addCartValue();
-      addToCart({
-        id: productId,
-        price: productData.price,
-        name: productData.title,
-      });
-    }
+    // const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
+    // if (!loggedUser || Object.keys(loggedUser).length === 0) {
+    //   navigate("/cart");
+    // } else if (productData) {
+    //   addCartValue();
+    addToCart(productId, "S");
+    // }
   };
 
   if (!productData) {
@@ -51,12 +45,12 @@ function Product() {
 
   return (
     <div className={`product-p ${dark ? "primary-dark-active" : ""}`}>
-      <img src={productData.image} alt={productData.title} />
+      <img src={productData.image[0]} alt={productData.name} />
       <div className="product-information">
-        <h1>{productData.title}</h1>
+        <h1>{productData.name}</h1>
         <p>{productData.category}</p>
         <p>${productData.price}</p>
-        <p>{productData.description}</p>
+        <p>{productData.discription}</p>
         <div className="button">
           <button onClick={handleAddToCart}>Add To Cart</button>
           <button>Buy Now</button>

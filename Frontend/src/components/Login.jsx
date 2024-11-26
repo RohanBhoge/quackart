@@ -1,61 +1,65 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import ProductContext from "../context/Product/ProductContext";
 import { useNavigate } from "react-router-dom";
 import Close from "../assets/close.svg";
-
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
-  const {
-    userAccount,
-    setUserAccount,
-    setLogedUser,
-    loginActive,
-    setUserName,
-    dark,
-  } = useContext(ProductContext);
+  // const [token, setToken] = useState("");
+
+  const { loginActive, token, setToken, dark, backendUrl } =
+    useContext(ProductContext);
   const navigate = useNavigate();
+  const newUser = async (name, email, password) => {
+    try {
+      console.log(backendUrl);
 
-  const newUser = (name, email, pwd) => {
-    const storedAccounts = JSON.parse(localStorage.getItem("account")) || [];
-    const isEmailExist = storedAccounts.some(
-      (account) => account.email === email
-    );
+      const response = await axios.post(backendUrl + "/api/user/register", {
+        name,
+        email,
+        password,
+      });
+      console.log(response);
 
-    if (isEmailExist) {
-      alert("Email already exists");
-      return;
-    }
-
-    const newUserAccount = {
-      name,
-      email,
-      password: pwd,
-      cartproducts: [],
-    };
-
-    const updatedAccounts = [...storedAccounts, newUserAccount];
-    localStorage.setItem("account", JSON.stringify(updatedAccounts));
-    setUserAccount(updatedAccounts);
-  };
-
-  const loginUser = (email, password) => {
-    const storedAccounts = JSON.parse(localStorage.getItem("account")) || [];
-    const foundAccount = storedAccounts.find(
-      (account) => account.email === email && account.password === password
-    );
-
-    if (foundAccount) {
-      localStorage.setItem("LogedUser", JSON.stringify(foundAccount));
-      const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
-      setLogedUser(loggedUser);
-      setUserName(loggedUser.name);
-      navigate("/");
-    } else if (storedAccounts.length === 0) {
-      alert("Please register first.");
-    } else {
-      alert("Invalid email or password.");
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
   };
+
+  const loginUser = async (email, password) => {
+    try {
+      const response = await axios.post(backendUrl + "/api/user/login", {
+        email,
+        password,
+      });
+
+      console.log(response);
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+    }
+  }, [token]);
 
   return (
     <div
@@ -69,11 +73,13 @@ const Login = () => {
       <div className="sign-up">
         <form
           onSubmit={(e) => {
+            e.preventDefault();
             newUser(
               e.target.txt.value,
               e.target.email.value,
               e.target.password.value
             );
+            console.log("responce submited");
           }}
         >
           <label htmlFor="chk" aria-hidden="true">
@@ -108,6 +114,7 @@ const Login = () => {
       <div className={`login ${dark ? "dark-active" : ""}`}>
         <form
           onSubmit={(e) => {
+            e.preventDefault();
             loginUser(e.target.email.value, e.target.pswd.value);
           }}
         >

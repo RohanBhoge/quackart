@@ -1,45 +1,46 @@
-import React, { useContext } from "react";
+import { useContext, useEffect } from "react";
 import "./Card.css";
 import { Link, useNavigate } from "react-router-dom";
 import ProductContext from "../context/Product/ProductContext";
 
 function Card({ item }) {
   const context = useContext(ProductContext);
-
   const navigate = useNavigate();
-  const cartClick = (event) => {
-    event.preventDefault();
-    const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
-    if (!loggedUser || Object.keys(loggedUser).length === 0) {
-      navigate("/cart");
-    } else {
-      localStorage.setItem(
-        "cartValue",
-        parseInt(
-          localStorage.getItem("cartValue")
-            ? localStorage.getItem("cartValue")
-            : "0"
-        ) + 1
-      );
-      context.setCartValue(localStorage.getItem("cartValue"));
-      context.setCartId(item.id);
-      context.addToCart(item);
-    }
+  const cartClick = (e) => {
+    e.preventDefault();
+    // const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
+    // if (!loggedUser || Object.keys(loggedUser).length === 0) {
+    //   navigate("/cart");
+    // } else {
+    //   localStorage.setItem(
+    //     "cartValue",
+    //     parseInt(
+    //       localStorage.getItem("cartValue")
+    //         ? localStorage.getItem("cartValue")
+    //         : "0"
+    //     ) + 1
+    //   );
+    //   context.setCartValue(localStorage.getItem("cartValue"));
+    //   context.setCartId(item._id);
+    context.addToCart(item._id, "M");
+    const setProductData = async () => await context.setProductData(item);
+    setProductData();
+    // }
   };
 
   return (
     <Link
       to={"/product"}
       className={`card ${context.dark ? "secondry-dark-active" : ""}`}
-      onClick={() => context.setProductId(item.id)}
+      onClick={() => context.setProductId(item._id)}
     >
       <div className="img-container">
-        <img src={item.image} alt="" />
+        <img src={item.image[0]} alt="" />
       </div>
-      <p className="product-discription">{item.title}</p>
+      <p className="product-discription">{item.discription}</p>
       <div className="price-rate">
         <p className="rating">
-          <span>{item.rating.rate} &#8902;</span> rating.
+          <span>{5} &#8902;</span> rating.
         </p>
         <p className="price">${item.price}</p>
       </div>

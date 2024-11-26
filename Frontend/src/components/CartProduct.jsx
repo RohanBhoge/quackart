@@ -6,20 +6,20 @@ import ProductContext from "../context/Product/ProductContext";
 
 function CartProduct({ product }) {
   const context = useContext(ProductContext);
-  const [productData, setProductData] = useState({});
-
-  useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${product.id}`)
-      .then((res) => res.json())
-      .then((data) => setProductData(data));
-  }, [product.id]);
+  const productData=context.productData
+  // const [productData, setProductData] = useState({});
+  // useEffect(() => {
+  //   fetch(`https://fakestoreapi.com/products/${product.id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setProductData(data));
+  // }, [product.id]);
 
   const removeCartItem = () => {
-    context.removeFromCart(productData.id);
+    context.removeFromCart(productData._id);
   };
 
   const updateQuantity = (newQuantity, event) => {
-    context.updateCartItemQuantity(product.id, newQuantity);
+    context.updateCartItemQuantity(product._id, newQuantity);
 
     if (newQuantity > product.quantity) {
       context.addCartValue(event);
@@ -34,11 +34,11 @@ function CartProduct({ product }) {
     <div className={`cart-product ${context.dark ? "dark-active" : ""}`}>
       <img
         className="product-img"
-        src={productData.image}
-        alt={productData.title}
+        src={productData.image[0]}
+        alt={productData.discription}
       />
       <div className="product-info">
-        <p>{productData.title}</p>
+        <p>{productData.discription}</p>
         <div className="price-button">
           <p>${(productData.price * product.quantity).toFixed(2)}</p>
           <div className="buttons">

@@ -10,7 +10,7 @@ import darkCart from "../assets/dark-cart.svg";
 import darkProfile from "../assets/dark-profile.svg";
 
 function Navbar() {
-  const { logedUser = {}, dark, setDark } = useContext(ProductContext); // Destructure with a default empty object
+  const { logedUser = {}, dark, setDark, token } = useContext(ProductContext); // Destructure with a default empty object
   const navigate = useNavigate();
 
   const isDark = localStorage.getItem("DarkMode");
@@ -47,7 +47,7 @@ function Navbar() {
         />
         {/* Link to login/logout based on logged-in status */}
         <Link
-          to={Object.keys(logedUser).length !== 0 ? "/logout" : "/login"}
+          to={token.length !== 0 ? "/logout" : "/login"}
           className={`profile-info ${dark ? "dark-active" : ""}`}
         >
           <img src={dark ? darkProfile : profile} alt="Profile" />
