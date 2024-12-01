@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Home.css";
 import Category from "../components/Category";
 import Filter from "../components/Filter";
@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Category setCategory={setCategory} />
       <div className={`product ${dark ? "dark-active" : ""}`}>
-        <Filter setSortItem={setSortItem} />  
+        <Filter setSortItem={setSortItem} />
         <CardList category={category} sortItem={sortItem} />
       </div>
     </>

@@ -6,19 +6,34 @@ import ProductContext from "../context/Product/ProductContext";
 
 function CartPage() {
   const context = useContext(ProductContext);
-  const { logedUser,dark } = context;
-  const cartItems = logedUser?.cartproducts || [];
+  const { dark, cartItems } = context;
 
   return (
-    <div className={`cart-page ${dark ? "primary-dark-active dark-active" : ""}`}>
-      {cartItems.length > 0 ? (
-        cartItems.map((cartItem) => (
-          <CartProduct key={cartItem.id} product={cartItem} />
-        ))
+    <div
+      className={`cart-page ${dark ? "primary-dark-active dark-active" : ""}`}
+    >
+      {Object.keys(cartItems).length > 0 ? (
+        Object.entries(cartItems).flatMap(([itemId, sizes]) =>
+          Object.entries(sizes).map(([size, quantity]) => {
+            if (quantity > 0) {
+              return (
+                <CartProduct
+                  key={`${itemId}-${size}`}
+                  cartItem={{
+                    _id: itemId,
+                    size: size,
+                    quantity: quantity,
+                  }}
+                />
+              );
+            }
+            return null; // Skip if quantity is 0
+          })
+        )
       ) : (
         <p>Your cart is empty</p>
       )}
-      {cartItems.length > 0 && <CartTotal />}
+      {Object.keys(cartItems).length > 0 && <CartTotal />}
     </div>
   );
 }

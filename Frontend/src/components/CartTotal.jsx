@@ -3,26 +3,15 @@ import "./CartTotal.css";
 import ProductContext from "../context/Product/ProductContext";
 
 function CartTotal() {
-  const { logedUser } = useContext(ProductContext);
-  const cartItems = logedUser.cartproducts || [];
-
-  // Calculate total price of all items in the cart
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-
-  // Calculate total number of items in the cart
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
+  const { getCartCount, addTotalPrice } = useContext(ProductContext);
   return (
     <div className="cart-total">
       <p>PRICE DETAILS</p>
       <p>
-        Total Qty: <span>{totalItems}</span>
+        Total Qty: <span>{getCartCount()}</span>
       </p>
       <p>
-        Total Amount: <span>${totalPrice.toFixed(2)}</span>
+        Total Amount: <span>${addTotalPrice()}</span>
       </p>
     </div>
   );

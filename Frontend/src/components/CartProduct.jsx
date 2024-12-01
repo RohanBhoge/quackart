@@ -4,69 +4,67 @@ import downArrow from "../assets/arrow-down-01.svg";
 import { useContext, useEffect, useState } from "react";
 import ProductContext from "../context/Product/ProductContext";
 
-function CartProduct({ product }) {
-  const context = useContext(ProductContext);
-  const productData=context.productData
-  // const [productData, setProductData] = useState({});
-  // useEffect(() => {
-  //   fetch(`https://fakestoreapi.com/products/${product.id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setProductData(data));
-  // }, [product.id]);
+function CartProduct({ cartItem }) {
+  const {
+    product,
+    dark,
+    updateCart,
+  } = useContext(ProductContext);
 
-  const removeCartItem = () => {
-    context.removeFromCart(productData._id);
-  };
-
-  const updateQuantity = (newQuantity, event) => {
-    context.updateCartItemQuantity(product._id, newQuantity);
-
-    if (newQuantity > product.quantity) {
-      context.addCartValue(event);
-    } else if (newQuantity > 0) {
-      context.minusCartValue(event, product.id);
-    } else {
-      context.removeFromCart(product.id);
+  const [productData, setProductData] = useState(null);
+  useEffect(() => {
+    const matchedProduct = product.find((item) => item._id === cartItem._id);
+    if (matchedProduct) {
+      setProductData(matchedProduct);
     }
-  };
+  }, [product, cartItem]);
+  if (!productData) {
+    return null; // Don't render anything until product data is ready
+  }
 
   return (
-    <div className={`cart-product ${context.dark ? "dark-active" : ""}`}>
+    <div className={`cart-product ${dark ? "dark-active" : ""}`}>
       <img
         className="product-img"
         src={productData.image[0]}
-        alt={productData.discription}
+        alt={productData.description}
       />
       <div className="product-info">
-        <p>{productData.discription}</p>
+        <p>{productData.description}</p>
         <div className="price-button">
-          <p>${(productData.price * product.quantity).toFixed(2)}</p>
+          <p>${(productData.price * cartItem.quantity).toFixed(2)}</p>
           <div className="buttons">
-            <button onClick={(e) => updateQuantity(product.quantity - 1, e)}>
+            <button onClick={() => updateCart("decrease", productData._id)}>
               -
             </button>
-            <button onClick={(e) => updateQuantity(product.quantity + 1, e)}>
+            <button onClick={() => updateCart("increase", productData._id)}>
               +
             </button>
           </div>
         </div>
         <div className="qty-delete">
           <div className="qty">
-            <p>Qty: {product.quantity}</p>
+            <p>Qty: {cartItem.quantity}</p>
             <div className="inc-dic">
               <img
                 src={upArrow}
-                alt=""
-                onClick={(e) => updateQuantity(product.quantity + 1, e)}
+                alt="Increase Quantity"
+                onClick={() => updateCart("increase", productData._id)}
               />
               <img
                 src={downArrow}
-                alt=""
-                onClick={(e) => updateQuantity(product.quantity - 1, e)}
+                alt="Decrease Quantity"
+                onClick={() => updateCart("decrease", productData._id)}
               />
             </div>
           </div>
-          <button onClick={removeCartItem}>Remove</button>
+          <button
+            onClick={() => {
+              updateCart("remove", productData._id);
+            }}
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>

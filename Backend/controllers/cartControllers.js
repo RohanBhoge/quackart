@@ -5,6 +5,8 @@ import cartRouter from "../routes/cartRouts.js";
 const addToCart = async (req, res) => {
   try {
     const { userId, itemId, size } = req.body;
+    console.log(req.body);
+
     const userData = await userModel.findById(userId);
     const cartData = await userData.cartData;
     if (cartData[itemId]) {
@@ -32,7 +34,6 @@ const updateCart = async (req, res) => {
     const { userId, itemId, size, quantity } = req.body;
     let cartData = await userData.cartData;
     cartData[(itemId, size)] = quantity;
-
     await userModel.findByIdAndUpdate(userId, { cartData });
     res.json({ success: true, message: "Added to cart" });
   } catch (error) {
@@ -46,9 +47,9 @@ const getUserCart = async (req, res) => {
   try {
     const { userId } = req.body;
     const userData = await userModel.findById(userId);
-    const cardData = await userData.cardData;
+    const cartData = await userData.cartData;
 
-    res.json({ success: true, cardData: userData.cardData });
+    res.json({ success: true, cartData: userData.cartData });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });

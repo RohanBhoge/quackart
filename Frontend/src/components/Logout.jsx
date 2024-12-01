@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./Logout.css";
 import addAcountIcon from "../assets/add_account.svg";
 import darkaddAcountIcon from "../assets/darkadd_account.svg";
@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ProductContext from "../context/Product/ProductContext";
 import profile from "../assets/profile.svg";
 import darkprofile from "../assets/darkprofile.svg";
+
 const Logout = () => {
   const context = useContext(ProductContext);
   const navigation = useNavigate();

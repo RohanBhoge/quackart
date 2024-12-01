@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 import CartPage from "./Pages/CartPage";
 import Logout from "./components/Logout";
 import Account from "./Pages/Account";
-import CartLoginForm from "./components/CartLoginForm";
 import { useContext } from "react";
 import ProductContext from "./context/Product/ProductContext";
 import HomePageShemmer from "./components/HomePageShemmer.jsx";
@@ -20,7 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/product" element={<Product />} />
-        <Route
+        {/* <Route
           path="/cart"
           element={
             Object.keys(logedUser).length === 0 ? (
@@ -29,7 +28,8 @@ export default function App() {
               <CartPage />
             )
           }
-        />
+        /> */}
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/login" element={<Account />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/shemmer" element={<HomePageShemmer />} />

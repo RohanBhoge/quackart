@@ -27,6 +27,9 @@ const ProductState = (props) => {
 
   const [token, setToken] = useState("");
 
+  const [cartData, setCartData] = useState([]);
+  const [cartItems, setCartItems] = useState({});
+
   // Dark Mode.
 
   const [dark, setDark] = useState(
@@ -35,7 +38,6 @@ const ProductState = (props) => {
 
   // Backend Url
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  // console.log(import.meta.env);
 
   const [product, setProduct] = useState([]);
 
@@ -56,157 +58,142 @@ const ProductState = (props) => {
     getProductData();
   }, []);
 
-  // getProductData();
+  const updateCart = async (action, cartId) => {
+    const size = "m";
+    let updatedCart = structuredClone(cartItems);
+    if (updatedCart[cartId]) {
+      switch (action) {
+        case "increase":
+          updatedCart[cartId].quantity += 1;
+          break;
 
-  // Function to add items to cart
-  // const addToCart = async (item) => {
+        case "decrease":
+          if (updatedCart[cartId].quantity > 1) {
+            updatedCart[cartId].quantity -= 1;
+          } else {
+            delete updatedCart[cartId];
+          }
+          break;
 
-  //   const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
+        case "remove":
+          delete updatedCart[cartId];
+          break;
 
-  //   setLogedUser((prevUser) => {
-  //     const isItemPresent = prevUser.cartproducts?.find(
-  //       (cartItem) => cartItem.id === item.id
-  //     );
-  //     let updatedCartProducts;
-
-  //     if (isItemPresent) {
-  //       updatedCartProducts = prevUser.cartproducts.map((cartItem) =>
-  //         cartItem.id === item.id
-  //           ? { ...cartItem, quantity: cartItem.quantity + 1 }
-  //           : cartItem
-  //       );
-  //     } else {
-  //       updatedCartProducts = [
-  //         ...(prevUser.cartproducts || []),
-  //         { ...item, quantity: 1 },
-  //       ];
-  //     }
-
-  //     // Update user account in localStorage
-  //     const users = JSON.parse(localStorage.getItem("account")) || [];
-  //     const userIndex = users.findIndex(
-  //       (user) =>
-  //         loggedUser.email === user.email &&
-  //         loggedUser.password === user.password
-  //     );
-  //     if (userIndex !== -1) {
-  //       users[userIndex].cartproducts = updatedCartProducts;
-  //       localStorage.setItem("account", JSON.stringify(users));
-  //     }
-
-  //     // Update the local logedUser and persist it
-  //     const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-  //     localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-  //     return updatedUser;
-  //   });
-
-  //   // if (token) {
-  //   //   try {
-  //   //       await axios.post(backendUrl + "/api/cart/add",{item.id,size},{headers:{token}})
-  //   //   } catch (error) {
-  //   //     console.log(error);
-  //   //     toast.error(error.message)
-  //   //   }
-  //   // }
-  // };
-
-  // // Function to remove item from cart
-  // const removeFromCart = (id) => {
-  //   setLogedUser((prevUser) => {
-  //     const updatedCartProducts = prevUser.cartproducts.filter(
-  //       (cartItem) => cartItem.id !== id
-  //     );
-
-  //     const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-
-  //     // Update localStorage account and LogedUser
-  //     const users = JSON.parse(localStorage.getItem("account")) || [];
-  //     const userIndex = users.findIndex(
-  //       (user) =>
-  //         logedUser.email === user.email && logedUser.password === user.password
-  //     );
-  //     if (userIndex !== -1) {
-  //       users[userIndex].cartproducts = updatedCartProducts;
-  //       localStorage.setItem("account", JSON.stringify(users));
-  //     }
-  //     localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-  //     return updatedUser;
-  //   });
-  // };
-
-  // // Function to update the quantity of cart items
-  // const updateCartItemQuantity = (id, quantity) => {
-  //   setLogedUser((prevUser) => {
-  //     const updatedCartProducts = prevUser.cartproducts.map((item) =>
-  //       item.id === id ? { ...item, quantity } : item
-  //     );
-
-  //     const updatedUser = { ...prevUser, cartproducts: updatedCartProducts };
-
-  //     const users = JSON.parse(localStorage.getItem("account")) || [];
-  //     const userIndex = users.findIndex(
-  //       (user) =>
-  //         logedUser.email === user.email && logedUser.password === user.password
-  //     );
-  //     if (userIndex !== -1) {
-  //       users[userIndex].cartproducts = updatedCartProducts;
-  //       localStorage.setItem("account", JSON.stringify(users));
-  //     }
-  //     localStorage.setItem("LogedUser", JSON.stringify(updatedUser));
-
-  //     return updatedUser;
-  //   });
-  // };
-
-  // // Function to handle cart value increments.
-  // const addCartValue = (event) => {
-  //   const newCartValue = parseInt(localStorage.getItem("cartValue") || "0") + 1;
-  //   localStorage.setItem("cartValue", newCartValue);
-  //   setCartValue(newCartValue);
-  // };
-
-  // // Function to handle cart value decrements and remove item if cart value is 0
-  // const minusCartValue = (event, id) => {
-  //   event.preventDefault();
-  //   const currentCartValue = parseInt(localStorage.getItem("cartValue") || "0");
-
-  //   if (currentCartValue > 0) {
-  //     const newCartValue = currentCartValue - 1;
-  //     localStorage.setItem("cartValue", newCartValue);
-  //     setCartValue(newCartValue);
-  //   } else {
-  //     removeFromCart(id);
-  //   }
-  // };
-  //
-
-  //
-
-  const [search, setSearch] = useState("");
-  const [showSearch, setShowSearch] = useState("");
-  const [cartItems, setCartItems] = useState({});
-
-  const addToCart = async (itemId, size) => {
-    let cartData = structuredClone(cartItems);
-    if (cartData[itemId]) {
-      if (cartData[itemId[size]]) {
-        cartData[itemId][size] += 1;
-      } else {
-        cartData[itemId][size] = 1;
+        default:
+          console.error("Invalid action provided!");
       }
     } else {
-      cartData[itemId] = {};
-      cartData[itemId][size] = 1;
+      console.error(`Item with cartId: ${cartId} not found in cart.`);
     }
-    setCartItems(cartData);
-    console.log(cartData);
+    setCartItems(updatedCart);
+    const quantity = updatedCart[cartId].quantity;
+    console.log(token);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/update",
+          { cartId, size, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const addTotalPrice = () => {
+    if (!cartItems || typeof cartItems !== "object") {
+      console.error("Invalid cartItems:", cartItems);
+      return 0;
+    }
+
+    const totalPrice = Object.keys(cartItems).reduce((total, productId) => {
+      const cartItem = cartItems[productId]; // Get the quantity object
+      const matchedProduct = product.find((prod) => prod._id === productId); // Match the product
+      if (matchedProduct) {
+        return total + cartItem.quantity * matchedProduct.price; // Multiply quantity by price
+      }
+      return total; // Skip if no matching product is found
+    }, 0);
+
+    return totalPrice;
+  };
+
+  const getUserCart = async () => {
+    console.log("hello");
+
+    try {
+      const responce = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
+
+      console.log(responce.data);
+
+      if (responce.data.success) {
+        setCartItems(responce.data.cartData);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
-    console.log(cartItems);
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+      getUserCart(localStorage.getItem("token"));
+    }
   }, []);
+
+  const addToCart = async (itemId) => {
+    // Create a deep copy of cartItems to avoid mutating state directly
+    let cartdata = structuredClone(cartItems);
+    if (cartdata[itemId]) {
+      if (cartdata[itemId].quantity) {
+        cartdata[itemId].quantity += 1;
+      } else {
+        cartdata[itemId].quantity = 1;
+      }
+    } else {
+      cartdata[itemId] = { quantity: 1 };
+    }
+    setCartItems(cartdata);
+
+    const size = "m";
+
+    if (token) {
+      try {
+        const responce = await axios.post(
+          backendUrl + "/api/cart/add",
+          { itemId, size },
+          { headers: { token } }
+        );
+        console.log(responce);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
+  };
+
+  const getCartCount = () => {
+    let totalCount = 0;
+    for (const items in cartItems) {
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
+            totalCount += cartItems[items][item];
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+    return totalCount;
+  };
 
   return (
     <ProductContext.Provider
@@ -219,14 +206,10 @@ const ProductState = (props) => {
         cartId,
         setCartId,
         addToCart,
-        // removeFromCart,
-        // updateCartItemQuantity,
         totalPrice,
         setTotalPrice,
         data,
         setData,
-        // addCartValue,
-        // minusCartValue,
         userName,
         setUserName,
         logedUser,
@@ -245,6 +228,11 @@ const ProductState = (props) => {
         token,
         setToken,
         backendUrl,
+        getCartCount,
+        setCartData,
+        cartData,
+        updateCart,
+        addTotalPrice,
       }}
     >
       {props.children}

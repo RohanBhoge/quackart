@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./Filter.css";
 import up from "../assets/up-arrow.svg";
 import down from "../assets/down-arrow.svg";
@@ -17,8 +17,6 @@ function Filter({ setSortItem }) {
     else setSortCategory((prev) => prev.filter((item) => item !== category));
   };
 
- 
-
   const toggleSort = () => {
     setIsSortOpen((prev) => !prev);
   };
@@ -33,11 +31,8 @@ function Filter({ setSortItem }) {
   };
 
   const clearAll = () => {
-    // Reset the selected sort option
     handleSortOptionClick("Relevance");
     setSortItem("Relevance");
-
-    // Clear the selected categories
     setSortCategory([]);
   };
 

@@ -1,27 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import "./Login.css";
 import ProductContext from "../context/Product/ProductContext";
 import { useNavigate } from "react-router-dom";
 import Close from "../assets/close.svg";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Login = () => {
-  // const [token, setToken] = useState("");
 
+const Login = () => {
   const { loginActive, token, setToken, dark, backendUrl } =
     useContext(ProductContext);
   const navigate = useNavigate();
   const newUser = async (name, email, password) => {
     try {
-      console.log(backendUrl);
-
       const response = await axios.post(backendUrl + "/api/user/register", {
         name,
         email,
         password,
       });
-      console.log(response);
 
       if (response.data.success) {
         setToken(response.data.token);
@@ -41,8 +37,6 @@ const Login = () => {
         email,
         password,
       });
-
-      console.log(response);
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
@@ -114,8 +108,8 @@ const Login = () => {
       <div className={`login ${dark ? "dark-active" : ""}`}>
         <form
           onSubmit={(e) => {
-            e.preventDefault();
             loginUser(e.target.email.value, e.target.pswd.value);
+            console.log("User is loged in");
           }}
         >
           <label htmlFor="chk" aria-hidden="true">

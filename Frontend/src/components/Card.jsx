@@ -1,31 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import "./Card.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProductContext from "../context/Product/ProductContext";
 
 function Card({ item }) {
   const context = useContext(ProductContext);
-  const navigate = useNavigate();
   const cartClick = (e) => {
     e.preventDefault();
-    // const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
-    // if (!loggedUser || Object.keys(loggedUser).length === 0) {
-    //   navigate("/cart");
-    // } else {
-    //   localStorage.setItem(
-    //     "cartValue",
-    //     parseInt(
-    //       localStorage.getItem("cartValue")
-    //         ? localStorage.getItem("cartValue")
-    //         : "0"
-    //     ) + 1
-    //   );
-    //   context.setCartValue(localStorage.getItem("cartValue"));
-    //   context.setCartId(item._id);
     context.addToCart(item._id, "M");
     const setProductData = async () => await context.setProductData(item);
     setProductData();
-    // }
   };
 
   return (

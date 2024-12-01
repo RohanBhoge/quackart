@@ -6,17 +6,13 @@ import { useNavigate } from "react-router-dom";
 // Utility function to get product data
 
 function Product() {
-  const { productId, addCartValue, addToCart, dark, product } =
-    useContext(ProductContext);
+  const { productId, addToCart, dark, product } = useContext(ProductContext);
   const [productData, setProductData] = useState(null);
-  const navigate = useNavigate();
 
   // Update Product Data.
   const fetchProductData = async (productId, product) => {
-    console.log(product, productId);
     try {
       const response = product.filter((item) => item._id === productId);
-      console.log(response);
       useEffect(() => {
         setProductData(response[0]);
       }, [response]);
@@ -27,17 +23,6 @@ function Product() {
     }
   };
   fetchProductData(productId, product);
-  // console.log(productData);
-
-  const handleAddToCart = () => {
-    // const loggedUser = JSON.parse(localStorage.getItem("LogedUser"));
-    // if (!loggedUser || Object.keys(loggedUser).length === 0) {
-    //   navigate("/cart");
-    // } else if (productData) {
-    //   addCartValue();
-    addToCart(productId, "S");
-    // }
-  };
 
   if (!productData) {
     return <p>Loading...</p>;
@@ -52,7 +37,7 @@ function Product() {
         <p>${productData.price}</p>
         <p>{productData.discription}</p>
         <div className="button">
-          <button onClick={handleAddToCart}>Add To Cart</button>
+          <button onClick={() => addToCart(productId, "S")}>Add To Cart</button>
           <button>Buy Now</button>
         </div>
       </div>

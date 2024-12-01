@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import profile from "../assets/profile.svg";
 import cart from "../assets/cart.svg";
 import "./Navbar.css";
@@ -10,7 +10,13 @@ import darkCart from "../assets/dark-cart.svg";
 import darkProfile from "../assets/dark-profile.svg";
 
 function Navbar() {
-  const { logedUser = {}, dark, setDark, token } = useContext(ProductContext); // Destructure with a default empty object
+  const {
+    logedUser = {},
+    dark,
+    setDark,
+    token,
+    getCartCount,
+  } = useContext(ProductContext); // Destructure with a default empty object
   const navigate = useNavigate();
 
   const isDark = localStorage.getItem("DarkMode");
@@ -29,10 +35,6 @@ function Navbar() {
     setDark(isDark === "true");
   }, [dark]);
 
-  const totalCart = logedUser.cartproducts
-    ? logedUser.cartproducts.reduce((total, item) => total + item.quantity, 0)
-    : 0;
-
   return (
     <div className={`navbar ${dark ? "dark-active" : ""}`}>
       <p onClick={() => navigate("/")} className="logo">
@@ -45,6 +47,7 @@ function Navbar() {
           src={dark ? lightMode : darkMode}
           alt=""
         />
+
         {/* Link to login/logout based on logged-in status */}
         <Link
           to={token.length !== 0 ? "/logout" : "/login"}
@@ -56,7 +59,7 @@ function Navbar() {
 
         {/* Link to cart */}
         <Link className={`cart-info ${dark ? "dark-active" : ""}`} to="/cart">
-          <span>{totalCart}</span>
+          <span>{getCartCount()}</span>
           <img src={dark ? darkCart : cart} alt="Cart" />
           <p>Cart</p>
         </Link>
