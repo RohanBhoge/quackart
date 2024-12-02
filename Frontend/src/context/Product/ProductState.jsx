@@ -14,6 +14,7 @@ const ProductState = (props) => {
   const [cartValue, setCartValue] = useState(
     localStorage.getItem("cartValue") || 0
   );
+
   const [cartId, setCartId] = useState(localStorage.getItem("SID"));
   const [userAccount, setUserAccount] = useState([]);
 
@@ -87,12 +88,11 @@ const ProductState = (props) => {
     }
     setCartItems(updatedCart);
     const quantity = updatedCart[cartId].quantity;
-    console.log(token);
 
     if (token) {
       try {
         await axios.post(
-          backendUrl + "/api/cart/update",
+          backendUrl + "/api/cart/get",
           { cartId, size, quantity },
           { headers: { token } }
         );
@@ -120,18 +120,13 @@ const ProductState = (props) => {
     return totalPrice;
   };
 
-  const getUserCart = async () => {
-    console.log("hello");
-
+  const getUserCart = async (token) => {
     try {
       const responce = await axios.post(
         backendUrl + "/api/cart/get",
         {},
         { headers: { token } }
       );
-
-      console.log(responce.data);
-
       if (responce.data.success) {
         setCartItems(responce.data.cartData);
       }
@@ -166,12 +161,11 @@ const ProductState = (props) => {
 
     if (token) {
       try {
-        const responce = await axios.post(
+        await axios.post(
           backendUrl + "/api/cart/add",
           { itemId, size },
           { headers: { token } }
         );
-        console.log(responce);
       } catch (error) {
         console.log(error);
         toast.error(error.message);
