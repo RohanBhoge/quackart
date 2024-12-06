@@ -34,9 +34,10 @@ const Login = () => {
   const loginUser = async (email, password) => {
     try {
       const response = await axios.post(backendUrl + "/api/user/login", {
-        email,
+        email,  
         password,
       });
+
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
@@ -67,13 +68,11 @@ const Login = () => {
       <div className="sign-up">
         <form
           onSubmit={(e) => {
-            e.preventDefault();
             newUser(
               e.target.txt.value,
               e.target.email.value,
               e.target.password.value
             );
-            console.log("responce submited");
           }}
         >
           <label htmlFor="chk" aria-hidden="true">
@@ -109,7 +108,6 @@ const Login = () => {
         <form
           onSubmit={(e) => {
             loginUser(e.target.email.value, e.target.pswd.value);
-            console.log("User is loged in");
           }}
         >
           <label htmlFor="chk" aria-hidden="true">

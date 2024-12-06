@@ -59,9 +59,16 @@ const ProductState = (props) => {
     getProductData();
   }, []);
 
+  useEffect(() => {
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+      getUserCart(localStorage.getItem("token"));
+    }
+  }, []);
+
   const updateCart = async (action, cartId) => {
-    const size = "m";
     let updatedCart = structuredClone(cartItems);
+
     if (updatedCart[cartId]) {
       switch (action) {
         case "increase":
@@ -82,23 +89,33 @@ const ProductState = (props) => {
 
         default:
           console.error("Invalid action provided!");
+          return;
+      }
+
+      setCartItems(updatedCart);
+
+      if (token) {
+        try {
+          if (action === "remove" || !updatedCart[cartId]) {
+            await axios.post(
+              `${backendUrl}/api/cart/update`,
+              { token, itemId: cartId, quantity: 0 },
+              { headers: { token } }
+            );
+          } else {
+            const quantity = updatedCart[cartId].quantity;
+            await axios.post(
+              `${backendUrl}/api/cart/update`,
+              { token, itemId: cartId, quantity },
+              { headers: { token } }
+            );
+          }
+        } catch (error) {
+          console.error("Error updating cart on backend:", error);
+        }
       }
     } else {
       console.error(`Item with cartId: ${cartId} not found in cart.`);
-    }
-    setCartItems(updatedCart);
-    const quantity = updatedCart[cartId].quantity;
-
-    if (token) {
-      try {
-        await axios.post(
-          backendUrl + "/api/cart/get",
-          { cartId, size, quantity },
-          { headers: { token } }
-        );
-      } catch (error) {
-        console.log(error);
-      }
     }
   };
 
@@ -109,12 +126,12 @@ const ProductState = (props) => {
     }
 
     const totalPrice = Object.keys(cartItems).reduce((total, productId) => {
-      const cartItem = cartItems[productId]; // Get the quantity object
-      const matchedProduct = product.find((prod) => prod._id === productId); // Match the product
+      const cartItem = cartItems[productId];
+      const matchedProduct = product.find((prod) => prod._id === productId);
       if (matchedProduct) {
-        return total + cartItem.quantity * matchedProduct.price; // Multiply quantity by price
+        return total + cartItem.quantity * matchedProduct.price;
       }
-      return total; // Skip if no matching product is found
+      return total;
     }, 0);
 
     return totalPrice;
@@ -127,6 +144,7 @@ const ProductState = (props) => {
         {},
         { headers: { token } }
       );
+
       if (responce.data.success) {
         setCartItems(responce.data.cartData);
       }
@@ -136,40 +154,28 @@ const ProductState = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (!token && localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
-      getUserCart(localStorage.getItem("token"));
-    }
-  }, []);
-
   const addToCart = async (itemId) => {
-    // Create a deep copy of cartItems to avoid mutating state directly
-    let cartdata = structuredClone(cartItems);
-    if (cartdata[itemId]) {
-      if (cartdata[itemId].quantity) {
-        cartdata[itemId].quantity += 1;
+    try {
+      let cartdata = structuredClone(cartItems);
+      if (cartdata[itemId]) {
+        cartdata[itemId].quantity = (cartdata[itemId].quantity || 0) + 1;
       } else {
-        cartdata[itemId].quantity = 1;
+        cartdata[itemId] = { quantity: 1 };
       }
-    } else {
-      cartdata[itemId] = { quantity: 1 };
-    }
-    setCartItems(cartdata);
 
-    const size = "m";
+      setCartItems(cartdata);
 
-    if (token) {
-      try {
+      const quantity = cartdata[itemId].quantity;
+      if (token) {
         await axios.post(
-          backendUrl + "/api/cart/add",
-          { itemId, size },
+          `${backendUrl}/api/cart/add`,
+          { itemId, quantity },
           { headers: { token } }
         );
-      } catch (error) {
-        console.log(error);
-        toast.error(error.message);
       }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
     }
   };
 
