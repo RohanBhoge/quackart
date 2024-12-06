@@ -6,23 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ProductState = (props) => {
   // Initial states using localStorage data
-  const [productData, setProductData] = useState(null);
-
   const [filteredItems, setFilteredItems] = useState(0);
 
-  const [productId, setProductId] = useState(localStorage.getItem("SID"));
-  const [cartValue, setCartValue] = useState(
-    localStorage.getItem("cartValue") || 0
-  );
+  const [productId, setProductId] = useState();
 
-  const [cartId, setCartId] = useState(localStorage.getItem("SID"));
-  const [userAccount, setUserAccount] = useState([]);
-
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [data, setData] = useState([]);
-  const [userName, setUserName] = useState("Profile");
-
-  const [logedUser, setLogedUser] = useState(false);
 
   const [sortCategory, setSortCategory] = useState([]);
 
@@ -30,6 +17,7 @@ const ProductState = (props) => {
 
   const [cartData, setCartData] = useState([]);
   const [cartItems, setCartItems] = useState({});
+  const [useDetail, setUserDetail] = useState({});
 
   // Dark Mode.
 
@@ -57,7 +45,10 @@ const ProductState = (props) => {
 
   useEffect(() => {
     getProductData();
-  }, []);
+    getUserCart();
+    getUserDetails();
+    getCartCount();
+  }, [token]);
 
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
@@ -119,6 +110,24 @@ const ProductState = (props) => {
     }
   };
 
+  const getUserDetails = async () => {
+    try {
+      const response = await axios.get(backendUrl + "/api/user/user-details", {
+        headers: {
+          token,
+        },
+      });
+
+      if (response.data.success) {
+        setUserDetail(response.data.user);
+      } else {
+        console.log("Error:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
   const addTotalPrice = () => {
     if (!cartItems || typeof cartItems !== "object") {
       console.error("Invalid cartItems:", cartItems);
@@ -137,7 +146,7 @@ const ProductState = (props) => {
     return totalPrice;
   };
 
-  const getUserCart = async (token) => {
+  const getUserCart = async () => {
     try {
       const responce = await axios.post(
         backendUrl + "/api/cart/get",
@@ -199,30 +208,14 @@ const ProductState = (props) => {
     <ProductContext.Provider
       value={{
         cartItems,
-        cartValue,
-        setCartValue,
         productId,
         setProductId,
-        cartId,
-        setCartId,
         addToCart,
-        totalPrice,
-        setTotalPrice,
-        data,
-        setData,
-        userName,
-        setUserName,
-        logedUser,
-        setLogedUser,
-        userAccount,
-        setUserAccount,
         filteredItems,
         setFilteredItems,
         dark,
         setDark,
         product,
-        productData,
-        setProductData,
         setSortCategory,
         sortCategory,
         token,
@@ -233,6 +226,8 @@ const ProductState = (props) => {
         cartData,
         updateCart,
         addTotalPrice,
+        setUserDetail,
+        useDetail,
       }}
     >
       {props.children}

@@ -11,11 +11,11 @@ import darkProfile from "../assets/dark-profile.svg";
 
 function Navbar() {
   const {
-    logedUser = {},
     dark,
     setDark,
     token,
     getCartCount,
+    useDetail,
   } = useContext(ProductContext); // Destructure with a default empty object
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ function Navbar() {
           className={`profile-info ${dark ? "dark-active" : ""}`}
         >
           <img src={dark ? darkProfile : profile} alt="Profile" />
-          <p>Hello,{logedUser.name ? logedUser.name : "Guest"}</p>
+          <p>Hello,{useDetail.name ? useDetail.name : "Guest"}</p>
         </Link>
 
         {/* Link to cart */}

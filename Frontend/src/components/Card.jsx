@@ -8,8 +8,6 @@ function Card({ item }) {
   const cartClick = (e) => {
     e.preventDefault();
     context.addToCart(item._id, "M");
-    const setProductData = async () => await context.setProductData(item);
-    setProductData();
   };
 
   return (

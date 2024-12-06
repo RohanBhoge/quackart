@@ -1,5 +1,4 @@
 import userModel from "../models/useModel.js";
-import cartRouter from "../routes/cartRouts.js";
 
 // Add products to user Cart.
 const addToCart = async (req, res) => {

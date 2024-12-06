@@ -120,4 +120,27 @@ const user = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-export { loginUser, registerUser, adminLogin, user };
+
+const getUserDetails = async (req, res) => {
+  try {
+    const userId = req.body.userId; // Access the userId attached by authUser
+    const user = await userModel.findById(userId); // Fetch the user from the database
+
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    res.json({
+      success: true,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Server error" });
+  }
+};
+
+export { loginUser, registerUser, adminLogin, user, getUserDetails };

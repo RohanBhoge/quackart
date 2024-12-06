@@ -24,10 +24,10 @@ const Logout = () => {
             <img src={context.dark ? darkprofile : profile} alt="" />
             <div className="user-details">
               <p className="user-name">
-                {context.logedUser.name ? context.logedUser.name : "Guest"}
+                {context.useDetail.name ? context.useDetail.name : "Guest"}
               </p>
               <p className="user-email">
-                {context.logedUser.email || "useremail@gmail.com"}
+                {context.useDetail.email || "useremail@gmail.com"}
               </p>
             </div>
           </div>
@@ -36,7 +36,10 @@ const Logout = () => {
           <div className="section-divider"></div>
 
           {/* Link and add anather account */}
-          <Link to={"/login"} className="add-account-link">
+          <Link
+            to={"/login"}
+            className="add-account-link"
+          >
             <img
               src={context.dark ? darkaddAcountIcon : addAcountIcon}
               alt=""

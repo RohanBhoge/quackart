@@ -34,7 +34,7 @@ const Login = () => {
   const loginUser = async (email, password) => {
     try {
       const response = await axios.post(backendUrl + "/api/user/login", {
-        email,  
+        email,
         password,
       });
 
