@@ -36,14 +36,7 @@ function Filter({ setSortItem }) {
     setSortCategory([]);
   };
 
-  const categories = [
-    "Analog Watches",
-    "Women T-shirts",
-    "Women Tops And Tunics",
-    "Tops And Tunics",
-    "T-shirts",
-    "Dress",
-  ];
+  const categories = ["Topwear", "Bottomwear", "Winterwear"];
 
   return (
     <div className={`filter ${dark ? "dark-active" : ""}`}>
@@ -98,6 +91,7 @@ function Filter({ setSortItem }) {
               type="text"
               placeholder="Search Category"
               onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+              className="text-black"
             />
             <ul>
               {categories
