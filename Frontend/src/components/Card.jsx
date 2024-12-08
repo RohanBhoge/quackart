@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import "./Card.css";
 import { Link } from "react-router-dom";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 
 function Card({ item }) {
   const context = useContext(ProductContext);

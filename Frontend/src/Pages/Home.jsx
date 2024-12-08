@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import "./Home.css";
-import Category from "../components/Category";
-import Filter from "../components/Filter";
-import CardList from "../components/CardList";
-import ProductContext from "../context/Product/ProductContext";
+import Category from "../components/Category.jsx";
+import Filter from "../components/Filter.jsx";
+import CardList from "../components/CardList.jsx";
+import ProductContext from "../context/Product/ProductContext.jsx";
 export default function Home() {
   const [category, setCategory] = useState("");
   const [sortItem, setSortItem] = useState("");

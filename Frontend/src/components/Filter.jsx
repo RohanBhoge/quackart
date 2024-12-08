@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./Filter.css";
 import up from "../assets/up-arrow.svg";
 import down from "../assets/down-arrow.svg";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 
 function Filter({ setSortItem }) {
   const { filteredItems, dark, sortCategory, setSortCategory } =

@@ -5,7 +5,7 @@ import darkaddAcountIcon from "../assets/darkadd_account.svg";
 import logoutIcon from "../assets/logoutIcon.svg";
 import darklogoutIcon from "../assets/darklogoutIcon.svg";
 import { Link, useNavigate } from "react-router-dom";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 import profile from "../assets/profile.svg";
 import darkprofile from "../assets/darkprofile.svg";
 

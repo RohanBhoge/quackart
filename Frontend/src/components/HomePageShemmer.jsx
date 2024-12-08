@@ -1,6 +1,6 @@
 import  { useContext } from "react";
 import "./HomePageShemmer.css";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 
 const HomePageShemmer = () => {
   const context = useContext(ProductContext);

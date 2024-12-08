@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import "./CardList.css";
 import Card from "./Card";
-import ProductContext from "../context/Product/ProductContext";
-import HomePageShemmer from "./HomePageShemmer";
+import ProductContext from "../context/Product/ProductContext.jsx";
+import HomePageShemmer from "./HomePageShemmer.jsx";
 
 function CardList({ category, sortItem }) {
   const { setFilteredItems, product, sortCategory } =

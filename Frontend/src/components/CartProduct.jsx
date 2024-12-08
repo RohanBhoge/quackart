@@ -2,7 +2,7 @@ import "./CartProduct.css";
 import upArrow from "../assets/up-arrow.svg";
 import downArrow from "../assets/arrow-down-01.svg";
 import { useContext, useEffect, useState } from "react";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 
 function CartProduct({ cartItem }) {
   const {

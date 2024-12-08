@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import "./Login.css";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 import { useNavigate } from "react-router-dom";
 import Close from "../assets/close.svg";
 import axios from "axios";

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import "./Category.css";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 
 function Category({ setCategory }) {
   const { dark } = useContext(ProductContext);

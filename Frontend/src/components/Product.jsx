@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 import "./Product.css";
-import { useNavigate } from "react-router-dom";
 
 // Utility function to get product data
 

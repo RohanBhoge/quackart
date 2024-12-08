@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import profile from "../assets/profile.svg";
 import cart from "../assets/cart.svg";
 import "./Navbar.css";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import darkMode from "../assets/dark-mode.svg";
 import lightMode from "../assets/light-mode.svg";

@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import CartProduct from "../components/CartProduct";
-import CartTotal from "../components/CartTotal";
+import CartProduct from "../components/CartProduct.jsx";
+import CartTotal from "../components/CartTotal.jsx";
 import "./CartPage.css";
-import ProductContext from "../context/Product/ProductContext";
+import ProductContext from "../context/Product/ProductContext.jsx";
 
 function CartPage() {
   const context = useContext(ProductContext);
