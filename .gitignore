@@ -3,3 +3,47 @@ quickcart-assets/
 .mp4 
 .jpg
 .svg
+
+
+# Node modules
+node_modules/
+
+# Build artifacts
+dist/
+build/
+public/
+coverage/
+
+# IDE specific files
+.idea/
+*.suo
+*.suo.meta
+*.user
+*.cache
+*.sln
+*.vcproj
+*.vcxproj
+
+# Log files
+*.log
+npm-debug.log
+
+# Environment variables
+.env
+.env.local
+
+# Testing files
+.nyc_output/
+
+# Editor config files
+.editorconfig
+
+# Lint cache
+.eslintcache
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+*.md
+*~
