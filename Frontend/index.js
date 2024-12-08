@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import App from "./src/App";
+import App from "./src/App.jsx";
 import ProductState from "./src/context/Product/ProductState.jsx";
 
 const root = createRoot(document.getElementById("root"));
