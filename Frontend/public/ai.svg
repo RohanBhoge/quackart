@@ -1,0 +1,7 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="(link unavailable)">
+<path d="M246.5 0H253.5V500H246.5V0Z" fill="#0055FF"/>
+<path d="M0 0H500V500H0V0Z" fill="none" stroke="#0055FF" stroke-width="10"/>
+<path d="M253.5 0H500V500H253.5V0Z" fill="#87CEEB"/>
+<path d="M246.5 0L246.5 500" stroke="#0055FF" stroke-width="10"/>
+<text x="50%" y="50%" font-size="64" font-family="Arial" text-anchor="middle" fill="#FFFFFF">QC</text>
+</svg>

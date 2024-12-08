@@ -36,7 +36,7 @@ function Filter({ setSortItem }) {
     setSortCategory([]);
   };
 
-  const categories = ["Topwear", "Bottomwear", "Winterwear"];
+  const categories = ["Topwear", "Bottom", "Winterwear"];
 
   return (
     <div className={`filter ${dark ? "dark-active" : ""}`}>

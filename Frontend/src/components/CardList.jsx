@@ -18,30 +18,33 @@ function CardList({ category, sortItem }) {
     }, 2000);
   }, [product]);
 
-  // Filtering and sorting logic
   const filteredData = data
-    .filter((item) => !category || item.category === category)
-    .filter(
-      (item) =>
-        sortCategory.length == 0 ||
-        sortCategory.some((sortItem) =>
-          sortItem.toLowerCase().includes(item.name.toLowerCase())
-        )
-    )
+    .filter((item) => {
+      if (category) {
+        return item.category === category;
+      }
+      return true;
+    })
+    .filter((item) => {
+      if (sortCategory.length > 0) {
+        return sortCategory.some(
+          (sortItem) =>
+            sortItem.toLowerCase() === item.subcategory.toLowerCase()
+        );
+      }
+      return true;
+    })
     .sort((a, b) => {
       switch (sortItem) {
         case "Price (Low to High)":
           return a.price - b.price;
         case "Price (High to Low)":
           return b.price - a.price;
-        // case "Ratings":
-        //   return b.rating.rate - a.rating.rate;
         default:
           return a.id - b.id;
       }
     });
 
-  // Updating filtered items count in context safely using useEffect
   useEffect(() => {
     setFilteredItems(filteredData.length);
   }, [filteredData, setFilteredItems]);

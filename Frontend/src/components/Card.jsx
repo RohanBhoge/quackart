@@ -21,9 +21,6 @@ function Card({ item }) {
       </div>
       <p className="product-discription">{item.discription}</p>
       <div className="price-rate">
-        <p className="rating">
-          <span>{5} &#8902;</span> rating.
-        </p>
         <p className="price">${item.price}</p>
       </div>
       <button onClick={(e) => cartClick(e)}>Add To Cart</button>
