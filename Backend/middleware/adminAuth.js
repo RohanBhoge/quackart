@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import react from "react";
 const adminAuth = async (req, res, next) => {
   try {
     //   getting token from header
