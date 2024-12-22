@@ -56,3 +56,11 @@ Quickcart is a full-stack e-commerce application designed to provide users with 
 - **Version Control**: Git.
 
 ---
+
+## Contact
+
+Feel free to reach out to me through the following channels:
+
+- **Email**: [bhogerohan12@gmail.com](mailto:bhogerohan12@gmail.com)
+- **GitHub**: [RohanBhoge](https://github.com/RohanBhoge)
+- **LinkedIn**: [Rohan Bhoge](https://www.linkedin.com/in/rohanbhoge)
