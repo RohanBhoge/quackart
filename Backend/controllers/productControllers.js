@@ -98,7 +98,6 @@ const singleProduct = async (req, res) => {
   try {
     const { productId } = req.body;
     const Product = await productModel.findById(productId);
-    console.log(Product); // This is giving null value. so later 
     res.json({ success: true, Product });
   } catch (error) {
     console.log(error);
