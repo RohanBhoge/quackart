@@ -8,6 +8,7 @@ Quickcart is a full-stack e-commerce application designed to provide users with 
 - [Technologies Used](#technologies-used)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
+- [Deployment](#deployment)
 - [Contact](#contact)
 - [Acknowledgments](#acknowledgments)
 
