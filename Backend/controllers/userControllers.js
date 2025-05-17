@@ -108,7 +108,7 @@ const loginUser = async (req, res) => {
 
 const getUserDetails = async (req, res) => {
   try {
-    const userId = req.body.userId; 
+    const userId = req.body.userId;
 
     if (!userId) {
       return res.json({
@@ -117,7 +117,7 @@ const getUserDetails = async (req, res) => {
       });
     }
 
-    const user = await userModel.findById(userId); 
+    const user = await userModel.findById(userId);
 
     if (!user) {
       return res.json({
@@ -142,4 +142,4 @@ const getUserDetails = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, user, getUserDetails };
+export { loginUser, registerUser, getUserDetails };

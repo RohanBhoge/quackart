@@ -5,7 +5,6 @@ import {
   addProduct,
   addListProduct,
   removeProduct,
-  singleProduct,
 } from "../controllers/productControllers.js";
 import upload from "../middleware/multer.js";
 
