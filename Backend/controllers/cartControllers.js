@@ -5,7 +5,13 @@ const addToCart = async (req, res) => {
   try {
     const { userId, itemId, quantity } = req.body;
 
-    // Fetch user data
+    if (!userId || !itemId || !quantity) { 
+      return res.status(400).json({
+        success: false,
+        message: "Please provide all required fields.",
+      });
+    }
+    
     const userData = await userModel.findById(userId);
     const cartData = userData.cartData || {};
 
