@@ -4,52 +4,28 @@
 import userModel from "../models/useModel.js";
 import validator from "validator";
 import bcrypt, { hash } from "bcrypt";
-import jwt from "jsonwebtoken";
+import createToken from "../utils/createToken.js";
+import hashedPassword from "../utils/hashPassword.js";
 
-// Rout for login user
-const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await userModel.findOne({ email });
-
-    if (!user) {
-      return res.json({ success: false, message: "User is does not exist." });
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (isMatch) {
-      const token = createToken(user._id);
-      res.json({ success: true, token });
-    } else {
-      res.json({ success: false, message: "Invalid Creadentioals." });
-    }
-  } catch (error) {
-    console.log(error);
-    res.json({
-      success: false,
-      message: error,
-    });
-  }
-};
-
-//Create Token;
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRETE);
-};
-
-// Rout for user register
 const registerUser = async (req, res) => {
   try {
     const { email, name, password } = req.body;
-    // is user aldready exist.
+
+    if (!email || !name || !password) {
+      return res.json({
+        success: false,
+        message: "Please fill all the fields",
+      });
+    }
 
     const exist = await userModel.findOne({ email });
     if (exist) {
-      return res.json({ success: false, message: "User aldready exist." });
+      return res.json({
+        success: false,
+        message: "User aldready exist.",
+      });
     }
 
-    //Validating email and strong password.
     if (!validator.isEmail(email)) {
       return res.json({
         success: false,
@@ -60,75 +36,94 @@ const registerUser = async (req, res) => {
     if (password.length < 8) {
       return res.json({
         success: false,
-        message: "Password is not valid",
+        message: "Password shuld be at least 8 characters long",
       });
     }
-
-    //Hashing user password
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
 
     //Create new user.
     const newUser = new userModel({
       name,
       email,
-      password: hashedPassword,
+      password: await hashedPassword(password),
     });
+
     const user = await newUser.save();
 
-    //Create token
     const token = createToken(user._id);
-    res.json({ success: true, token });
+    res.json({
+      success: true,
+      token,
+    });
   } catch (error) {
     console.log(error);
     res.json({
       success: false,
-      message: message.error,
+      message: error,
     });
-
   }
 };
 
-// Rout for admin login.
-const adminLogin = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (
-      email === process.env.ADMIN_EMAIL &&
-      password === process.env.ADMIN_PASSWORD
-    ) {
-      const token = jwt.sign(email + password, process.env.JWT_SECRETE);
-      res.json({ success: true, token });
+
+    if (!email || !password) {
+      return res.json({
+        success: false,
+        message: "Please fill all the fields",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User is does not exist.",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.json({
+        success: true,
+        token,
+      });
     } else {
-      res.json({ success: false, message: "Invalid Creadintials" });
+      res.json({
+        success: false,
+        message: "Invalid Creadentioals.",
+      });
     }
   } catch (error) {
     console.log(error);
     res.json({
       success: false,
-      message: message.error,
+      message: error,
     });
-  }
-};
-
-const user = async (req, res) => {
-  try {
-    const users = await userModel.find();
-    res.json({ success: true, users });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
   }
 };
 
 const getUserDetails = async (req, res) => {
   try {
-    const userId = req.body.userId; // Access the userId attached by authUser
-    const user = await userModel.findById(userId); // Fetch the user from the database
+    const userId = req.body.userId; 
+
+    if (!userId) {
+      return res.json({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+
+    const user = await userModel.findById(userId); 
 
     if (!user) {
-      return res.json({ success: false, message: "User not found" });
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
     }
 
     res.json({
@@ -140,8 +135,11 @@ const getUserDetails = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Server error" });
+    res.json({
+      success: false,
+      message: "Server error",
+    });
   }
 };
 
-export { loginUser, registerUser, adminLogin, user, getUserDetails };
+export { loginUser, registerUser, user, getUserDetails };
