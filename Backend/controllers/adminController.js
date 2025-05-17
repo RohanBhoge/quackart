@@ -32,7 +32,7 @@ const adminRegister = async (req, res) => {
     if (password.length < 8) {
       return res.json({
         success: false,
-        message: "Password is not valid",
+        message: "Password should be at least 8 characters long",
       });
     }
 
