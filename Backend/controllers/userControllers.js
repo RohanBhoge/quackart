@@ -86,6 +86,7 @@ const registerUser = async (req, res) => {
       success: false,
       message: message.error,
     });
+
   }
 };
 

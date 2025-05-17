@@ -5,6 +5,7 @@ import connectDB from "./config/mongodb.js";
 import userRouter from "./routes/userRouts.js";
 import productRouter from "./routes/productRouts.js";
 import cartRouter from "./routes/cartRouts.js";
+import adminRouter from "./routes/adminRouts.js";
 
 dotenv.config();
 // App config
@@ -20,6 +21,7 @@ app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/admin", adminRouter);
 
 app.get("/", (req, res) => {
   res.send("API Working");

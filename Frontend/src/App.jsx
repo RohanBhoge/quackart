@@ -15,16 +15,6 @@ export default function App() {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/product" element={<Product />} />
-        {/* <Route
-          path="/cart"
-          element={
-            Object.keys(logedUser).length === 0 ? (
-              <CartLoginForm />
-            ) : (
-              <CartPage />
-            )
-          }
-        /> */}
         <Route path="/cart" element={<CartPage />} />
         <Route path="/login" element={<Account />} />
         <Route path="/logout" element={<Logout />} />

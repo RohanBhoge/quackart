@@ -10,7 +10,6 @@ const ProductState = (props) => {
 
   const [productId, setProductId] = useState();
 
-
   const [sortCategory, setSortCategory] = useState([]);
 
   const [token, setToken] = useState("");
