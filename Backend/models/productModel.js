@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-//  In the model we create the schema where we write the operation to handle deta.
-
-// Mongoose.Shema is a controctor.
 const productShema = new mongoose.Schema(
   {
     name: {

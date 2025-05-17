@@ -19,10 +19,17 @@ const addToCart = async (req, res) => {
     // Save updated cartData
     await userModel.findByIdAndUpdate(userId, { cartData });
 
-    res.json({ success: true, message: "Added to cart", cartData });
+    res.json({
+      success: true,
+      message: "Added to cart",
+      cartData,
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -34,7 +41,7 @@ const updateCart = async (req, res) => {
     // Find the user's cart data
     const userData = await userModel.findById(userId);
     let cartData = userData.cartData;
-
+    
     if (quantity === 0) {
       // Remove the item if quantity is 0
       delete cartData[itemId];
@@ -52,7 +59,6 @@ const updateCart = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-
 
 // get user cart data.
 const getUserCart = async (req, res) => {

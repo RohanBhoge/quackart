@@ -19,6 +19,19 @@ const addProduct = async (req, res) => {
       bestseller,
     } = req.body;
 
+    if (
+      !name ||
+      !discription ||
+      !price ||
+      !category ||
+      !subcategory ||
+      !sizes
+    ) {
+      return res.json({
+        success: false,
+        message: "Please fill all the fields.",
+      });
+    }
     // geting images from postman trough request.
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
@@ -30,15 +43,22 @@ const addProduct = async (req, res) => {
       (item) => item !== undefined
     );
 
+    if (images.length === 0) {
+      return res.json({
+        success: false,
+        message: "Please upload at least one image.",
+      });
+    }
+
     // Uploading Images to cloudinary.
     const imagesUrl = await Promise.all(
       images.map(async (item) => {
         try {
           const result = await cloudinary.uploader.upload(item.path, {
-            resource_type: "image", // Optional, default is "image"
+            resource_type: "image",
           });
 
-          return result.secure_url; // Returns the uploaded image's URL
+          return result.secure_url;
         } catch (err) {
           console.error("Cloudinary Upload Error:", err);
           throw err; // Rethrow to let the parent function handle it
@@ -61,10 +81,16 @@ const addProduct = async (req, res) => {
     const product = new productModel(productData);
     await product.save();
 
-    res.json({ success: true, message: "Product Added." });
+    res.json({
+      success: true,
+      message: "Product Added.",
+    });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -73,10 +99,24 @@ const addProduct = async (req, res) => {
 const addListProduct = async (req, res) => {
   try {
     const products = await productModel.find();
-    res.json({ success: true, products });
+
+    if (!products) {
+      return res.json({
+        success: false,
+        message: "No products found.",
+      });
+    }
+
+    res.json({
+      success: true,
+      products,
+    });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
@@ -84,25 +124,24 @@ const addListProduct = async (req, res) => {
 
 const removeProduct = async (req, res) => {
   try {
+    if (!req.body.id) {
+      return res.json({
+        success: false,
+        message: "Please provide product ID.",
+      });
+    }
     const remove = await productModel.findByIdAndDelete(req.body.id);
-    res.json({ success: true, message: "Product Removed." });
+    res.json({
+      success: true,
+      message: "Product Removed.",
+    });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
-//  Function for single product
-
-const singleProduct = async (req, res) => {
-  try {
-    const { productId } = req.body;
-    const Product = await productModel.findById(productId);
-    res.json({ success: true, Product });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
-  }
-};
-
-export { addProduct, addListProduct, removeProduct, singleProduct };
+export { addProduct, addListProduct, removeProduct };
