@@ -1,11 +1,14 @@
 import { useContext, useState } from "react";
 import "./Category.css";
 import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
 
 function Category({ setCategory }) {
-  const { dark } = useContext(ProductContext);
+
+  const { dark } = useContext(ThemeContext);
   const [selectCategory, setSelectCategory] = useState(0);
 
+  
   const categories = [
     { id: 0, label: "All", value: "All" },
     { id: 1, label: "Women", value: "Women" },

@@ -2,21 +2,22 @@ import { useContext, useEffect } from "react";
 import profile from "../assets/profile.svg";
 import cart from "../assets/cart.svg";
 import "./Navbar.css";
-import ProductContext from "../context/Product/ProductContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import darkMode from "../assets/dark-mode.svg";
 import lightMode from "../assets/light-mode.svg";
 import darkCart from "../assets/dark-cart.svg";
 import darkProfile from "../assets/dark-profile.svg";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
+import AuthContext from "../context/Auth/AuthContext.jsx";
+import CartContext from "../context/Cart/CartContext.jsx";
+import { toast } from "react-toastify";
 
 function Navbar() {
-  const {
-    dark,
-    setDark,
-    token,
-    getCartCount,
-    useDetail,
-  } = useContext(ProductContext); // Destructure with a default empty object
+  const { getCartCount } = useContext(CartContext);
+
+  const { token, userDetail } = useContext(AuthContext);
+  const { dark, setDark } = useContext(ThemeContext);
+
   const navigate = useNavigate();
 
   const isDark = localStorage.getItem("DarkMode");
@@ -30,6 +31,7 @@ function Navbar() {
       setDark(true);
     }
   };
+  useEffect(() => {}, [token]);
 
   useEffect(() => {
     setDark(isDark === "true");
@@ -54,11 +56,19 @@ function Navbar() {
           className={`profile-info ${dark ? "dark-active" : ""}`}
         >
           <img src={dark ? darkProfile : profile} alt="Profile" />
-          <p>Hello,{useDetail.name ? useDetail.name : "Guest"}</p>
+          <p>Hello,{userDetail.name ? userDetail.name : "Guest"}</p>
         </Link>
 
         {/* Link to cart */}
-        <Link className={`cart-info ${dark ? "dark-active" : ""}`} to="/cart">
+        <Link
+          onClick={() => {
+            if (token.length === 0 || !token) {
+              toast.error("Please login to access the cart");
+            }
+          }}
+          className={`cart-info ${dark ? "dark-active" : ""}`}
+          to={token.length === 0 || !token ? "/login" : "/cart"}
+        >
           <span>{getCartCount()}</span>
           <img src={dark ? darkCart : cart} alt="Cart" />
           <p>Cart</p>

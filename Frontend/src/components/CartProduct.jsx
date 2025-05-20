@@ -3,13 +3,13 @@ import upArrow from "../assets/up-arrow.svg";
 import downArrow from "../assets/arrow-down-01.svg";
 import { useContext, useEffect, useState } from "react";
 import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
+import CartContext from "../context/Cart/CartContext.jsx";
 
 function CartProduct({ cartItem }) {
-  const {
-    product,
-    dark,
-    updateCart,
-  } = useContext(ProductContext);
+  const { product } = useContext(ProductContext);
+  const { updateCart } = useContext(CartContext);
+  const { dark } = useContext(ThemeContext);
 
   const [productData, setProductData] = useState(null);
   useEffect(() => {
@@ -17,6 +17,7 @@ function CartProduct({ cartItem }) {
     if (matchedProduct) {
       setProductData(matchedProduct);
     }
+    
   }, [product, cartItem]);
   if (!productData) {
     return null; // Don't render anything until product data is ready

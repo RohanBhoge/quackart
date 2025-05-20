@@ -7,6 +7,8 @@ import CartPage from "./Pages/CartPage";
 import Logout from "./components/Logout";
 import Account from "./Pages/Account";
 import HomePageShemmer from "./components/HomePageShemmer.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return (
@@ -20,6 +22,17 @@ export default function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/shemmer" element={<HomePageShemmer />} />
       </Routes>
+      <ToastContainer
+        position="top-right" 
+        autoClose={3000} 
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" 
+      />
     </HashRouter>
   );
 }

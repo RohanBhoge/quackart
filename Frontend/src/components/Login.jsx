@@ -6,11 +6,16 @@ import Close from "../assets/close.svg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
+import AuthContext from "../context/Auth/AuthContext.jsx";
 
 const Login = () => {
-  const { loginActive, token, setToken, dark, backendUrl } =
-    useContext(ProductContext);
+  const { loginActive } = useContext(ProductContext);
+  const { token, setToken, backendUrl } = useContext(AuthContext);
+  const { dark } = useContext(ThemeContext);
+
   const navigate = useNavigate();
+
   const newUser = async (name, email, password) => {
     try {
       const response = await axios.post(backendUrl + "/api/user/register", {
@@ -18,10 +23,12 @@ const Login = () => {
         email,
         password,
       });
-
+      
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
+        toast.success("Registration Successful please login");
+        navigate("/login");
       } else {
         toast.error(response.data.message);
       }
@@ -38,9 +45,12 @@ const Login = () => {
         password,
       });
 
+      console.log(response.data);
+
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
+        toast.success("Login Successful");
         navigate("/");
       } else {
         toast.error(response.data.message);
@@ -68,6 +78,7 @@ const Login = () => {
       <div className="sign-up">
         <form
           onSubmit={(e) => {
+            e.preventDefault();
             newUser(
               e.target.txt.value,
               e.target.email.value,
@@ -107,6 +118,8 @@ const Login = () => {
       <div className={`login ${dark ? "dark-active" : ""}`}>
         <form
           onSubmit={(e) => {
+            e.preventDefault();
+
             loginUser(e.target.email.value, e.target.pswd.value);
           }}
         >

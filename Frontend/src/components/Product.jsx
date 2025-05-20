@@ -1,17 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import ProductContext from "../context/Product/ProductContext.jsx";
 import "./Product.css";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
+import CartContext from "../context/Cart/CartContext.jsx";
 
 // Utility function to get product data
 
 function Product() {
-  const { productId, addToCart, dark, product } = useContext(ProductContext);
+  const { productId, product } = useContext(ProductContext);
+  const { addToCart } = useContext(CartContext);
+  const { dark } = useContext(ThemeContext);
   const [productData, setProductData] = useState(null);
 
   // Update Product Data.
   const fetchProductData = async (productId, product) => {
     try {
       const response = product.filter((item) => item._id === productId);
+
       useEffect(() => {
         setProductData(response[0]);
       }, [response]);

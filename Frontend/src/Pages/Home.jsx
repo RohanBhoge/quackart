@@ -3,11 +3,11 @@ import "./Home.css";
 import Category from "../components/Category.jsx";
 import Filter from "../components/Filter.jsx";
 import CardList from "../components/CardList.jsx";
-import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
 export default function Home() {
   const [category, setCategory] = useState("");
   const [sortItem, setSortItem] = useState("");
-  const { dark } = useContext(ProductContext);
+  const { dark } = useContext(ThemeContext);
 
   return (
     <>

@@ -2,11 +2,12 @@ import { useContext } from "react";
 import CartProduct from "../components/CartProduct.jsx";
 import CartTotal from "../components/CartTotal.jsx";
 import "./CartPage.css";
-import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
+import CartContext from "../context/Cart/CartContext.jsx";
 
 function CartPage() {
-  const context = useContext(ProductContext);
-  const { dark, cartItems } = context;
+  const { cartItems } = useContext(CartContext);
+  const { dark } = useContext(ThemeContext);
 
   return (
     <div

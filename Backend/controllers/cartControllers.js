@@ -5,13 +5,13 @@ const addToCart = async (req, res) => {
   try {
     const { userId, itemId, quantity } = req.body;
 
-    if (!userId || !itemId || !quantity) { 
+    if (!userId || !itemId || !quantity) {
       return res.status(400).json({
         success: false,
         message: "Please provide all required fields.",
       });
     }
-    
+
     const userData = await userModel.findById(userId);
     const cartData = userData.cartData || {};
 
@@ -44,10 +44,21 @@ const updateCart = async (req, res) => {
   try {
     const { userId, itemId, quantity } = req.body;
 
+    if (!userId || !itemId || quantity === undefined) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide all required fields.",
+      });
+    }
+
     // Find the user's cart data
     const userData = await userModel.findById(userId);
     let cartData = userData.cartData;
-    
+
+    if (!cartData) {
+      cartData = {};
+    }
+
     if (quantity === 0) {
       // Remove the item if quantity is 0
       delete cartData[itemId];
@@ -59,7 +70,10 @@ const updateCart = async (req, res) => {
     // Save the updated cart data to the database
     await userModel.findByIdAndUpdate(userId, { cartData });
 
-    res.json({ success: true, message: "Cart updated successfully" });
+    res.json({
+      success: true,
+      message: "Cart updated successfully",
+    });
   } catch (error) {
     console.error(error);
     res.json({ success: false, message: error.message });
@@ -70,12 +84,28 @@ const updateCart = async (req, res) => {
 const getUserCart = async (req, res) => {
   try {
     const { userId } = req.body;
+     
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+
     const userData = await userModel.findById(userId);
+
     const cartData = await userData.cartData;
-    res.json({ success: true, cartData });
+    
+    res.json({
+      success: true,
+      cartData,
+    });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 

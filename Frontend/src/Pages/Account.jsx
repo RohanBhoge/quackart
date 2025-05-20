@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import Login from "../components/Login.jsx";
 import "./Account.css";
-import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
 
 const Account = () => {
-  const { dark } = useContext(ProductContext);
+  const { dark } = useContext(ThemeContext);
   return (
     <div className={`login-page ${dark ? "primary-dark-active " : ""}`}>
       <Login />

@@ -2,18 +2,22 @@ import { useContext } from "react";
 import "./Card.css";
 import { Link } from "react-router-dom";
 import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
+import CartContext from "../context/Cart/CartContext.jsx";
 
 function Card({ item }) {
   const context = useContext(ProductContext);
+  const { addToCart } = useContext(CartContext);
+  const { dark } = useContext(ThemeContext);
   const cartClick = (e) => {
     e.preventDefault();
-    context.addToCart(item._id, "M");
+    addToCart(item._id, "M");
   };
 
   return (
     <Link
       to={"/product"}
-      className={`card ${context.dark ? "secondry-dark-active" : ""}`}
+      className={`card ${dark ? "secondry-dark-active" : ""}`}
       onClick={() => context.setProductId(item._id)}
     >
       <div className="img-container">

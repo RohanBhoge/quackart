@@ -3,7 +3,7 @@
 
 import userModel from "../models/useModel.js";
 import validator from "validator";
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 import createToken from "../utils/createToken.js";
 import hashedPassword from "../utils/hashPassword.js";
 

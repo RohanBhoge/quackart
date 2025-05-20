@@ -1,13 +1,13 @@
-import  { useContext } from "react";
+import { useContext } from "react";
 import "./HomePageShemmer.css";
-import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
 
 const HomePageShemmer = () => {
-  const context = useContext(ProductContext);
+  const { dark } = useContext(ThemeContext);
   return (
     <div
       className={`shemmer-card ${
-        context.dark ? "primery-dark-active shemmer-dark-active " : ""
+        dark ? "primery-dark-active shemmer-dark-active " : ""
       }`}
     >
       <div className="img-container"></div>

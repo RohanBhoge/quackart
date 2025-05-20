@@ -3,10 +3,12 @@ import "./Filter.css";
 import up from "../assets/up-arrow.svg";
 import down from "../assets/down-arrow.svg";
 import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
 
 function Filter({ setSortItem }) {
-  const { filteredItems, dark, sortCategory, setSortCategory } =
+  const { filteredItems, sortCategory, setSortCategory } =
     useContext(ProductContext);
+  const { dark } = useContext(ThemeContext);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [sortOption, setSortOption] = useState("Relevance");
   const [isCategoryOpen, setIsCategoryOpen] = useState(true);

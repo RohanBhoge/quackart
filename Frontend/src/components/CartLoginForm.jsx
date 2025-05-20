@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Login from "./Login";
 import "./CartLoginForm.css";
-import ProductContext from "../context/Product/ProductContext.jsx";
+import ThemeContext from "../context/Theme/ThemeContext.jsx";
 
 const CartLoginForm = () => {
-  const { dark } = useContext(ProductContext);
+  const { dark } = useContext(ThemeContext);
   return (
     <div className={`cart-login ${dark ? "primary-dark-active" : ""}`}>
       <h1>Please Login First</h1>
